@@ -1,13 +1,11 @@
 # MongoNodeVue
 
-npm init  -y
-npm install express mongoose
 
-
-cd client
-npm install @vue/cli-service
+cd app
 npm run serve
 
+cd api
+node index.js
 
 Projet Choisi :
 
