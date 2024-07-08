@@ -1,5 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "@/components/HelloWorld.vue";
+import Home from "@/views/HomeView.vue";
+import AdminDashboardView from "@/views/AdminDashboardView.vue";
+import MyBookingsView from "@/views/MyBookingsView.vue";
+import TattooArtistView from "@/views/TattooArtistView.vue";
+import NotFoundView from "@/views/NotFoundView.vue";
 
 const routes = [
   {
@@ -7,10 +11,30 @@ const routes = [
     name: "Home",
     component: Home,
   },
+  {
+    path: "/admin-dashboard",
+    name: "AdminDashboardPage",
+    component: AdminDashboardView,
+  },
+  {
+    path: "/my-bookings",
+    name: "MyBookingsPage",
+    component: MyBookingsView,
+  },
+  {
+    path: "/tattoo-artist/:id", // Corrected dynamic segment syntax
+    name: "TattooArtistPage",
+    component: TattooArtistView,
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: NotFoundView,
+  },
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory("/"), // Hardcoded base URL
   routes,
 });
 
