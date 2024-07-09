@@ -1,8 +1,8 @@
 module.exports = {
-    MONGODB_USER: '',
-    MONGODB_PWD: '',
-    MONGODB_CLUSTER: 'cluster0.mpbkmsa.mongodb.net',
-    MONGODB_DATABASE: 'eval-node',
+    MONGODB_USER: 'omarhadidi123',
+    MONGODB_PWD: 'Omarhdd1',
+    MONGODB_CLUSTER: 'elhadidicluster.cgdgvxj.mongodb.net',
+    MONGODB_DATABASE: 'FlashArt',
     MONGOOSE_DEBUG: 'false'
   };
   
