@@ -1,13 +1,10 @@
 <script setup>
 import Card from "@/components/CardComponent.vue";
+import banner from "../assets/banner.png";
 </script>
 
 <template>
-  <img
-    class="w-full h-80"
-    src="/MongoNodeVue/client/src/assets/banner.png"
-    alt=""
-  />
+  <img class="w-full" :src="banner" alt="" />
   <container class="w-4/5 grid mx-auto">
     <Card></Card>
   </container>
