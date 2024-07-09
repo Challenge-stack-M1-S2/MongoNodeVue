@@ -1,6 +1,9 @@
 module.exports = (mongoose) => {
-const styleSchema = mongoose.Schema({
+const Style = mongoose.model(
+    'Style',
+    new mongoose.Schema({
     style_name: { type: String, required: true }
-});
-return styleSchema;
+    })
+);
+return Style;
 }
