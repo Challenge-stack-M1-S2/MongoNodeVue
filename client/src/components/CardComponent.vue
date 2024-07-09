@@ -10,8 +10,8 @@
   >
     <div class="w-4/5 mx-auto mb-4">
       <div class="flex items-center justify-left py-1">
-        <img src="https://cdn-icons-png.flaticon.com/512/674/674292.png" />
-        <b-card-text class="px-4">12 février 2023</b-card-text>
+        <img src="https://cdn-icons-png.flaticon.com/512/2901/2901609.png" />
+        <b-card-text class="px-4">Lyon 69000</b-card-text>
       </div>
       <div class="flex items-center justify-left py-1">
         <img src="https://cdn-icons-png.flaticon.com/512/12308/12308225.png" />
