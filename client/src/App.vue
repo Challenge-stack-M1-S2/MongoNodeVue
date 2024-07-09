@@ -10,6 +10,9 @@
       :class="{ 'bg-transparent': !scrolled, 'bg-black': scrolled }"
       class="py-4 w-full flex justify-center fixed top-0 z-10 transition-all duration-300"
     >
+      <router-link to="/" class="nav-link"
+        >Home</router-link
+      >
       <router-link to="/admin-dashboard" class="nav-link"
         >Admin Dashboard</router-link
       >
