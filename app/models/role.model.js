@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+module.exports = (mongoose) => {
 
 const Role = mongoose.model(
   "Role",
@@ -6,5 +6,5 @@ const Role = mongoose.model(
     name: String
   })
 );
-
-module.exports = Role;
+ return Role;
+};
