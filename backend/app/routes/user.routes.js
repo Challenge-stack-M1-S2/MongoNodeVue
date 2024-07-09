@@ -10,15 +10,16 @@ module.exports = function(app) {
     next();
   });
 
+
+  /********** Test des roles ***********/
+
+  // User non connecté
   app.get("/api/test/all", controller.allAccess);
 
+  // User connecté
   app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
 
-  app.get("/api/test/mod",
-    [authJwt.verifyToken, authJwt.isModerator],
-    controller.moderatorBoard
-  );
-
+  // Tatoueur
   app.get("/api/test/admin",
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.adminBoard
