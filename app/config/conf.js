@@ -7,7 +7,7 @@
 //   };
 
   module.exports = {
-    MONGODB_USER: 'oriancm',
+    MONGODB_USER: '',
     MONGODB_PWD: '',
     MONGODB_CLUSTER: 'cluster0.mpbkmsa.mongodb.net',
     MONGODB_DATABASE: 'flashart',
