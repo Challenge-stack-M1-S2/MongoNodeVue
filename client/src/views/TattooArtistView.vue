@@ -1,5 +1,6 @@
 <template>
   <b-container>
+    <h2 class="main-title text-center text-black">Tous les tattoos</h2>
     <b-row>
       <b-col v-for="(item, index) in images" :key="index" cols="12" md="4" class="mb-4">
         <b-img :src="item.src" fluid alt="Image" />
@@ -26,6 +27,11 @@ export default {
 
 <style>
 /* Ajoutez des styles personnalisés si nécessaire */
+.main-title {
+  margin-top: 2rem; /* Espace au-dessus du titre principal */
+  margin-bottom: 2rem; /* Espace en dessous du titre principal */
+  font-size: 2.5rem; /* Taille de la police plus grande */
+}
 .mb-4 {
   margin-bottom: 1.5rem; /* Ajustez la valeur selon vos besoins */
 }
