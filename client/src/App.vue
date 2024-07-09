@@ -1,4 +1,10 @@
 <template>
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
   <div id="app">
     <nav>
       <router-link to="/admin-dashboard" class="nav-link"
@@ -44,7 +50,7 @@ nav {
 
 .nav-link {
   margin: 0 15px;
-  color: #42b983;
+  color: #42b983 !important;
   text-decoration: none;
   font-weight: bold;
   transition: color 0.3s ease;
