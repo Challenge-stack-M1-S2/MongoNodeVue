@@ -16,7 +16,6 @@
       >
       <router-link to="/fake-route" class="nav-link">Fake Route</router-link>
     </nav>
-    <HelloWorld></HelloWorld>
     <RouterView />
   </div>
 </template>
