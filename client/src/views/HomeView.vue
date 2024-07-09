@@ -5,10 +5,12 @@ import banner from "../assets/banner2.png";
 
 <template>
   <img class="w-full" :src="banner" alt="" />
-  <div class="flex h-80 w-1/2 absolute top-28 right-0 justify-between">
+  <div class="flex h-80 w-5/12 absolute top-28 right-0 justify-between">
     <div
-      class="border-t-4 border-b-4 border-l-4 border-white h-full w-5/12"
-    ></div>
+      class="border-t-4 border-b-4 border-l-4 border-white h-full w-5/12 flex items-center justify-center"
+    >
+      <div>Flash Art</div>
+    </div>
     <div class="border-t-4 border-b-4 border-white h-full w-1/5"></div>
     <div class="border-t-4 border-b-4 border-white h-full w-1/5"></div>
   </div>
