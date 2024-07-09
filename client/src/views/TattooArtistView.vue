@@ -1,8 +1,29 @@
 <template>
-  <div>
-    <h1>Bienvuenue</h1>
-    <img src="../assets/banner.png" alt="banner">
-    <img src="../assets/banner.png" alt="banner">
-    <img src="../assets/banner.png" alt="banner">
-  </div>
+  <b-container>
+    <b-row>
+      <b-col v-for="(image, index) in images" :key="index" cols="12" md="4">
+        <b-img :src="image" fluid alt="Image" />
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      images: [
+        require('../assets/banner.png'),
+        require('../assets/banner.png'),
+        require('../assets/banner.png'),
+        require('../assets/banner.png'),
+      ]
+    }
+  }
+}
+</script>
+
+<style>
+/* Ajoutez des styles personnalisés si nécessaire */
+</style>
+
