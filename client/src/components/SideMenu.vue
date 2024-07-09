@@ -1,5 +1,4 @@
 <template>
-  <!-- Side menu -->
   <div
     class="sticky inset-y-0 left-0 w-64 bg-white shadow-lg z-50"
     style="height: 910px"
@@ -15,6 +14,7 @@
         <input
           type="text"
           v-model="departement"
+          @input="applyFilters"
           class="mt-1 p-2 block w-full border rounded-md"
           placeholder="Enter département"
         />
@@ -26,6 +26,7 @@
         <input
           type="text"
           v-model="tagSearch"
+          @input="applyFilters"
           @keydown.enter.prevent="addTag"
           class="mt-1 p-2 block w-full border rounded-md"
           placeholder="Search and add tags"
@@ -52,6 +53,7 @@
         <input
           type="text"
           v-model="artistSearch"
+          @input="applyFilters"
           @keydown.enter.prevent="addArtist"
           class="mt-1 p-2 block w-full border rounded-md"
           placeholder="Search and add artist"
@@ -89,24 +91,36 @@ export default {
       if (this.tagSearch && !this.tags.includes(this.tagSearch)) {
         this.tags.push(this.tagSearch);
         this.tagSearch = "";
+        this.applyFilters();
       }
     },
     removeTag(index) {
       this.tags.splice(index, 1);
+      this.applyFilters();
     },
     addArtist() {
       if (this.artistSearch && !this.artists.includes(this.artistSearch)) {
         this.artists.push(this.artistSearch);
         this.artistSearch = "";
+        this.applyFilters();
       }
     },
     removeArtist(index) {
       this.artists.splice(index, 1);
+      this.applyFilters();
+    },
+    applyFilters() {
+      const filters = {
+        departement: this.departement.trim().toLowerCase(),
+        tags: [...this.tags],
+        artists: [...this.artists],
+      };
+      this.$emit("filter", filters);
     },
   },
 };
 </script>
 
 <style scoped>
-/* Style Tailwind peut être ajouté selon vos préférences */
+/* Add Tailwind styles as needed */
 </style>
