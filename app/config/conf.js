@@ -1,8 +1,7 @@
 module.exports = {
-    MONGODB_USER: 'omarhadidi123',
-    MONGODB_PWD: 'Omarhdd1',
-    MONGODB_CLUSTER: 'elhadidicluster.cgdgvxj.mongodb.net',
-    MONGODB_DATABASE: 'FlashArt',
-    MONGOOSE_DEBUG: 'false'
-  };
-  
+  MONGODB_USER: "flashart7g",
+  MONGODB_PWD: "flashart7g",
+  MONGODB_CLUSTER: "elhadidicluster.cgdgvxj.mongodb.net",
+  MONGODB_DATABASE: "flashart7",
+  MONGOOSE_DEBUG: "false",
+};
