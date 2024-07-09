@@ -8,11 +8,9 @@
   <div id="app">
     <nav
       :class="{ 'bg-transparent': !scrolled, 'bg-black': scrolled }"
-      class="py-4 w-full flex justify-center fixed top-0 z-10 transition-all duration-300"
+      class="py-4 w-full flex justify-center bg-black top-0 z-10 transition-all duration-300"
     >
-      <router-link to="/" class="nav-link"
-        >Home</router-link
-      >
+      <router-link to="/" class="nav-link">Home</router-link>
       <router-link to="/admin-dashboard" class="nav-link"
         >Admin Dashboard</router-link
       >
@@ -32,7 +30,7 @@ import { ref, onMounted, onUnmounted } from "vue";
 const scrolled = ref(false);
 
 const handleScroll = () => {
-  scrolled.value = window.scrollY > 20; // Change 20 to adjust scroll threshold
+  scrolled.value = window.scrollY > 20;
 };
 
 onMounted(() => {
