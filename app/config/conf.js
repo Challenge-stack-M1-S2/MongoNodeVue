@@ -1,4 +1,12 @@
-module.exports = {
+// module.exports = {
+//     MONGODB_USER: 'flashart7g',
+//     MONGODB_PWD: 'flashart7g',
+//     MONGODB_CLUSTER: 'elhadidicluster.cgdgvxj.mongodb.net',
+//     MONGODB_DATABASE: 'flashart7',
+//     MONGOOSE_DEBUG: 'false'
+//   };
+
+  module.exports = {
     MONGODB_USER: 'oriancm',
     MONGODB_PWD: 'TsekB4BCXkoyp1HP',
     MONGODB_CLUSTER: 'cluster0.mpbkmsa.mongodb.net',
