@@ -40,6 +40,30 @@
               Mes réservations
             </router-link>
           </li>
+          <li class="mb-4">
+            <router-link
+              to="/tattoo-artist/:id"
+              class="flex items-center text-gray-700 hover:text-black"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/16702/16702410.png"
+                class="fas fa-star mr-2"
+              />
+              Mes tattoos
+            </router-link>
+          </li>
+          <li class="mb-4">
+            <router-link
+              to="/login-form"
+              class="flex items-center text-gray-700 hover:text-black"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/16702/16702410.png"
+                class="fas fa-star mr-2"
+              />
+              Login
+            </router-link>
+          </li>
           <hr style="width: 50%; text-align: left; margin-left: 0" />
           <li class="mb-4">
             <router-link
