@@ -4,6 +4,7 @@ import AdminDashboardView from "@/views/AdminDashboardView.vue";
 import MyBookingsView from "@/views/MyBookingsView.vue";
 import TattooArtistView from "@/views/TattooArtistView.vue";
 import NotFoundView from "@/views/NotFoundView.vue";
+import LoginFormView from "@/views/LoginForm.vue";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: "/:pathMatch(.*)*",
     name: "NotFound",
     component: NotFoundView,
+  },
+  {
+    path: "/login-form",
+    name: "NotFound",
+    component: LoginFormView,
   },
 ];
 

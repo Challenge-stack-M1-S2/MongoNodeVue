@@ -31,6 +31,12 @@
         class="nav-link"
         >Tattoo Artist</router-link
       >
+      <router-link
+        style="font-family: papyrus"
+        to="/login-form"
+        class="nav-link"
+        >Login</router-link
+      >
     </nav>
     <RouterView />
   </div>
