@@ -14,5 +14,12 @@ module.exports = function(app) {
  
  /*** User non connecté ***/
  app.get("/api/tattoos", controller.getTattoos) 
+ app.get("/api/tattoos/filter", controller.getTattoosByFilter);
+ app.get("/api/tattoos/:id", controller.getTattooById);
+
+ // Admin
+ app.post("/api/tattoos", [authJwt.verifyToken, authJwt.isAdmin], controller.createTattoo);
+ app.put("/api/tattoos/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.updateTattoo);
+ app.delete("/api/tattoos/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.deleteTattoo);
 
 }

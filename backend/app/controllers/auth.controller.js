@@ -111,3 +111,29 @@ exports.signin = (req, res) => {
       });
     });
 };
+
+// async function hashPassword(password) {
+//   try {
+//     const hashedPwd = await bcrypt.hash(password, 12);
+//     return hashedPwd;
+//   } catch (error) {
+//     throw new Error("Error hashing password");
+//   }
+// }
+
+// Utilisation de la fonction pour hasher "password123" et récupérer le mot de passe hashé dans une variable
+// async function getHashedPassword() {
+//   try {
+//     const plainPassword = "password123";
+//     const hashedPassword = await hashPassword(plainPassword);
+//     console.log("Hashed password:", hashedPassword);
+//     return hashedPassword;
+//   } catch (error) {
+//     console.error("Error:", error.message);
+//   }
+// }
+
+// $2a$12$Sb1aej4vRLY7XvUQvnq0Z.ySfgXY0P9QW8JrOTpzj/zl/VOjgVp6m
+
+// Appel de la fonction
+// getHashedPassword();

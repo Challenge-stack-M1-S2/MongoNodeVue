@@ -10,15 +10,33 @@
       :class="{ 'bg-transparent': !scrolled, 'bg-black': scrolled }"
       class="py-4 w-full flex justify-center bg-black top-0 z-10 transition-all duration-300"
     >
-      <router-link to="/" class="nav-link">Home</router-link>
-      <router-link to="/admin-dashboard" class="nav-link"
+      <router-link style="font-family: papyrus" to="/" class="nav-link"
+        >Home</router-link
+      >
+      <router-link
+        style="font-family: papyrus"
+        to="/admin-dashboard"
+        class="nav-link"
         >Admin Dashboard</router-link
       >
-      <router-link to="/my-bookings" class="nav-link">My Bookings</router-link>
-      <router-link to="/tattoo-artist/1" class="nav-link"
+      <router-link
+        style="font-family: papyrus"
+        to="/my-bookings"
+        class="nav-link"
+        >My Bookings</router-link
+      >
+      <router-link
+        style="font-family: papyrus"
+        to="/tattoo-artist/1"
+        class="nav-link"
         >Tattoo Artist</router-link
       >
-      <router-link to="/fake-route" class="nav-link">Fake Route</router-link>
+      <router-link
+        style="font-family: papyrus"
+        to="/login-form"
+        class="nav-link"
+        >Login</router-link
+      >
     </nav>
     <RouterView />
   </div>
