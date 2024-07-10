@@ -85,6 +85,27 @@ exports.getTattoosByFilter = async (req, res) => {
   }
 };
 
+exports.getTattooById = async (req, res) => {
+  try {
+    const tattoo = await Tattoo.findById(req.params.id)
+      .populate("style_id")
+      .populate({
+        path: "artist_id",
+        populate: {
+          path: "roles"
+        }
+      });
+      
+    if (!tattoo) {
+      return res.status(404).json({ message: "Tattoo not found" });
+    }
+
+    res.status(200).json(tattoo);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 exports.createTattoo = async (req, res) => {
   const { artist_id, style_id, image_url, description, price } = req.body;
 
