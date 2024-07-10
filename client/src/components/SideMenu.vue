@@ -46,7 +46,7 @@
               class="flex items-center text-gray-700 hover:text-black"
             >
               <img
-                src="https://cdn-icons-png.flaticon.com/512/16702/16702410.png"
+                src="https://cdn-icons-png.flaticon.com/512/4481/4481871.png"
                 class="fas fa-star mr-2"
               />
               Mes tattoos
@@ -58,7 +58,7 @@
               class="flex items-center text-gray-700 hover:text-black"
             >
               <img
-                src="https://cdn-icons-png.flaticon.com/512/16702/16702410.png"
+                src="https://cdn-icons-png.flaticon.com/512/11155/11155240.png"
                 class="fas fa-star mr-2"
               />
               Login
