@@ -2,16 +2,24 @@
   <div class="flex">
     <SideMenu class="w-1/4" />
     <div class="w-3/4 p-4">
-      <h1 class="text-2xl mb-4">Réserver un flash</h1>
-      <div class="flex mb-4">
-        <input
-          type="text"
-          placeholder="Rechercher un tatouage"
-          class="border p-2 rounded-l-md w-full"
-        />
-        <button class="border p-2 rounded-r-md bg-gray-200">🔍</button>
-        <button class="ml-2 border p-2 rounded-md bg-gray-200">LIEU</button>
-        <button class="ml-2 border p-2 rounded-md bg-gray-200">TATOUEUR</button>
+      <h1 class="text-6xl font-bold text-gray-800 mb-4">Réserver un flash</h1>
+      <div class="block mb-4">
+        <div class="flex">
+          <input
+            type="text"
+            placeholder="Rechercher un tatouage"
+            class="border p-2 rounded-l-md w-full"
+          />
+          <button class="border p-2 rounded-r-md bg-gray-200">🔍</button>
+        </div>
+        <div class="flex mt-4">
+          <button class="ml-2 text-gray-800 border p-2 rounded-md bg-gray-200">
+            LIEU
+          </button>
+          <button class="ml-2 text-gray-800 border p-2 rounded-md bg-gray-200">
+            TATOUEUR
+          </button>
+        </div>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <Card
