@@ -32,7 +32,7 @@ exports.addAppointments = async (req, res) => {
   //GET Appointment by user_id
   exports.getUserAppointments = async (req, res) => {
     try {
-      const userId = req.params.userId;
+      const userId = req.userId;
       const appointments = await Appointment.find({ user_id: userId }).populate('session_id');
       
       return res.status(200).json({

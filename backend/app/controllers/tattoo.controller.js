@@ -91,20 +91,26 @@ exports.getTattooById = async (req, res) => {
       .populate("style_id")
       .populate({
         path: "artist_id",
+        select: "-password", // Exclure le mot de passe
         populate: {
-          path: "roles"
+          path: "roles",
+          select: "name"
         }
       });
-      
+
     if (!tattoo) {
       return res.status(404).json({ message: "Tattoo not found" });
     }
 
-    res.status(200).json(tattoo);
+    // Récupérer les sessions associées
+    const sessions = await Session.find({ tattoo_id: tattoo._id });
+
+    res.status(200).json({ tattoo, sessions });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 exports.createTattoo = async (req, res) => {
   const { artist_id, style_id, image_url, description, price } = req.body;
