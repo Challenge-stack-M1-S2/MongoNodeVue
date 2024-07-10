@@ -1,4 +1,5 @@
 const db = require("../models");
+const geocoder = require('../utils/geocoder');
 const Tattoo = db.tattoo;
 const Style = db.style;
 const User = db.user;
@@ -48,7 +49,15 @@ exports.getTattoosByFilter = async (req, res) => {
     let sessionFilters = {};
 
     if (location) {
-      sessionFilters.location = location;
+      const loc = await geocoder.geocode(location);
+      if (loc.length > 0) {
+        const { latitude, longitude } = loc[0];
+        sessionFilters.location = {
+          $geoWithin: {
+            $centerSphere: [[longitude, latitude], 5 / 6378.1] // 5 km radius
+          }
+        };
+      }
     }
 
     if (date) {
@@ -79,7 +88,11 @@ exports.getTattoosByFilter = async (req, res) => {
         }
       });
 
-    res.status(200).json(tattoos);
+    res.status(200).json({
+      success: true,
+      count: tattoos.length,
+      data: tattoos
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
