@@ -10,12 +10,12 @@
       class="sticky top-0 p-4"
       :style="{
         'background-image':
-          'url(' + require('@/assets/sidemenu-banner.png') + ')',
+          'url(' + require('@/assets/sidemenu-banner2.png') + ')',
       }"
       style="height: 911px"
     >
       <nav class="h-full">
-        <ul class="h-full flex flex-column justify-start">
+        <ul class="h-full flex flex-column justify-center">
           <div>
             <li class="my-4">
               <router-link
