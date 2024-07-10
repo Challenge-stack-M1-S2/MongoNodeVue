@@ -43,7 +43,8 @@ app.get("/", (req, res) => {
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/tattoo.routes")(app);
-require("./app/routes/session.routes")(app); 
+require("./app/routes/session.routes")(app);
+require("./app/routes/appointment.routes")(app); 
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8081;

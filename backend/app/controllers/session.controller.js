@@ -4,7 +4,7 @@ const Session2 = db.session
 //GET REQUEST
 exports.getSessions = async (req, res) =>{
     try {
-        const sessions = await Session2.find();
+        const sessions = await Session2.find().populate("tattoo_id");
         return res.status(200).json({
             success: true,
             count: sessions.length,

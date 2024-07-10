@@ -13,9 +13,9 @@ module.exports = function(app) {
    /*** Session ***/
    
    /*** User non connecté ***/
-   app.get("/api/sessions", controller.getSessions) 
+   app.get("/api/sessions", controller.getSessions); 
 
-   app.post("/api/sessions", controller.addSessions)
+   app.post("/api/sessions", controller.addSessions);
   
   }
 
