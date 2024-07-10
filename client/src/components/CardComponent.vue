@@ -2,26 +2,35 @@
   <b-card
     :title="titre"
     :img-src="imageSrc"
-    img-alt="Image"
     img-top
     tag="article"
-    style="max-width: 20rem; height: 600px"
-    class="mb-4"
+    class="max-w-xs h-80 mb-4"
   >
-    <div class="w-4/5 mx-auto mb-4">
-      <div class="flex items-center justify-left py-1">
-        <img src="https://cdn-icons-png.flaticon.com/512/2901/2901609.png" />
-        <b-card-text class="px-4">{{ localisation }}</b-card-text>
+    <div class="p-4">
+      <div class="flex items-center mb-2">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/2901/2901609.png"
+          alt="Location"
+          class="h-4"
+        />
+        <span class="ml-2">{{ localisation }}</span>
       </div>
-      <div class="flex items-center justify-left py-1">
-        <img src="https://cdn-icons-png.flaticon.com/512/12308/12308225.png" />
-        <b-card-text class="px-4">{{ nomArtiste }}</b-card-text>
+      <div class="flex items-center mb-2">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/12308/12308225.png"
+          alt="Artist"
+          class="h-4"
+        />
+        <span class="ml-2">{{ nomArtiste }}</span>
       </div>
-    </div>
-    <div class="mb-3 flex flex-wrap">
-      <span class="tag" v-for="(tag, index) in tags" :key="index">{{
-        tag
-      }}</span>
+      <div class="flex flex-wrap">
+        <span
+          v-for="(tag, index) in tags"
+          :key="index"
+          class="bg-gray-200 rounded-full px-3 py-1 text-sm mr-2 mb-2"
+          >{{ tag }}</span
+        >
+      </div>
     </div>
     <b-button href="#" variant="primary">Go somewhere</b-button>
   </b-card>

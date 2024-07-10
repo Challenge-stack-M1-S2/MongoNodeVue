@@ -6,7 +6,7 @@ const myEnv = require("./app/config/conf");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:8080",
 };
 
 app.use(cors(corsOptions));
@@ -22,7 +22,7 @@ DbConnect()
     console.log("Successfully connected to MongoDB.");
     // Suppression de l'initialisation des données pour le moment
   })
-  .catch(err => {
+  .catch((err) => {
     console.error("Connection error", err);
     process.exit();
   });
@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
 // routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
-require("./app/routes/tattoo.routes")(app);  // Ajoutez cette ligne pour inclure les routes des tatouages
+require("./app/routes/tattoo.routes")(app); // Ajoutez cette ligne pour inclure les routes des tatouages
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8081;
