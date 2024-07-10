@@ -1,23 +1,32 @@
 <template>
-  <b-container>
-    <h2 class="main-title text-center text-black">Mes Réservations</h2>
-    <b-row>
-      <b-col v-for="(reservation, index) in reservations" :key="index" cols="12" md="6" lg="4" class="mb-4">
-        <b-card>
-          <template #header>
-            <h5>{{ reservation.title }}</h5>
-          </template>
-          <p>{{ reservation.description }}</p>
-          <p><strong>Date:</strong> {{ reservation.date }}</p>
-          <p><strong>Location:</strong> {{ reservation.location }}</p>
-        </b-card>
-      </b-col>
-    </b-row>
-  </b-container>
+  <div class="flex h-screen">
+    <SideMenu class="w-1/4 h-full" />
+    <div class="w-3/4 p-4 overflow-y-auto">
+      <h1 class="text-6xl font-bold text-gray-800 mb-4">Mes Réservations</h1>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div
+          v-for="(reservation, index) in reservations"
+          :key="index"
+          class="border p-4 rounded-md bg-white shadow-md"
+        >
+          <h2 class="text-xl font-semibold text-black mb-2">{{ reservation.title }}</h2>
+          <p class="text-black mb-2">{{ reservation.description }}</p>
+          <p class="text-black"><strong>Date:</strong> {{ reservation.date }}</p>
+          <p class="text-black"><strong>Location:</strong> {{ reservation.location }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import SideMenu from "@/components/SideMenu.vue";
+
 export default {
+  name: 'MyReservations',
+  components: {
+    SideMenu
+  },
   data() {
     return {
       reservations: [
@@ -46,7 +55,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .main-title {
   margin-top: 2rem;
   margin-bottom: 2rem;
