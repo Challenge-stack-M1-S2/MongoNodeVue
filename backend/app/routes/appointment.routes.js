@@ -15,7 +15,9 @@ module.exports = function(app) {
    /*** User non connecté ***/
    app.get("/api/appointments", controller.getAppointments);
    app.post("/api/appointments", controller.addAppointments);
-   app.get("/api/appointments/user/:userId", controller.getUserAppointments);
+
+   // user connecté 
+   app.get("/api/myAppointments", [authJwt.verifyToken], controller.getUserAppointments);
   //  app.get("/api/appointments/user/:userId", [authJwt.verifyToken], controller.getUserAppointments);
   
   }
