@@ -13,6 +13,96 @@
           <button class="border p-2 rounded-r-md bg-gray-200">🔍</button>
         </div>
         <div class="flex mt-4">
+          <div class="relative w-full">
+            <input
+              type="text"
+              v-model="filters.location"
+              @focus="showLocationSuggestions = true"
+              @input="updateLocationSuggestions"
+              placeholder="LIEU"
+              class="ml-2 text-gray-800 border p-2 rounded-md bg-gray-200 w-full"
+            />
+            <ul
+              v-if="showLocationSuggestions && filters.location"
+              class="absolute w-full bg-white border mt-1 z-10"
+            >
+              <li
+                v-for="(location, index) in filteredLocations"
+                :key="index"
+                @mousedown.prevent="handleLocationClick(location)"
+                class="cursor-pointer p-2 hover:bg-gray-200"
+              >
+                {{ location }}
+              </li>
+            </ul>
+            <div class="flex flex-wrap mt-2">
+              <span
+                v-for="(location, index) in filters.locations"
+                :key="index"
+                class="bg-blue-500 text-white rounded-full px-3 py-1 text-sm mr-2 mb-2 flex items-center"
+              >
+                {{ location }}
+                <button
+                  @click="handleLocationRemove(location)"
+                  class="ml-1 text-red-500"
+                  style="
+                    width: 20px;
+                    border-radius: 100%;
+                    background-color: #fff;
+                    color: black;
+                  "
+                >
+                  ×
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="relative w-full">
+            <input
+              type="text"
+              v-model="filters.artist"
+              @focus="showArtistSuggestions = true"
+              @input="updateArtistSuggestions"
+              placeholder="TATOUEUR"
+              class="ml-2 text-gray-800 border p-2 rounded-md bg-gray-200 w-full"
+            />
+            <ul
+              v-if="showArtistSuggestions && filters.artist"
+              class="absolute w-full bg-white border mt-1 z-10"
+            >
+              <li
+                v-for="(artist, index) in filteredArtists"
+                :key="index"
+                @mousedown.prevent="handleArtistClick(artist)"
+                class="cursor-pointer p-2 hover:bg-gray-200"
+              >
+                {{ artist }}
+              </li>
+            </ul>
+            <div class="flex flex-wrap mt-2">
+              <span
+                v-for="(artist, index) in filters.artists"
+                :key="index"
+                class="bg-blue-500 text-white rounded-full px-3 py-1 text-sm mr-2 mb-2 flex items-center"
+              >
+                {{ artist }}
+                <button
+                  @click="handleArtistRemove(artist)"
+                  class="ml-1 text-red-500"
+                  style="
+                    width: 20px;
+                    border-radius: 100%;
+                    background-color: #fff;
+                    color: black;
+                  "
+                >
+                  ×
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="flex mt-4">
           <select
             v-model="selectedTag"
             @change="addTag"
@@ -49,48 +139,6 @@
             </button>
           </span>
         </div>
-        <div class="flex mt-4">
-          <input
-            type="text"
-            v-model="locationQuery"
-            @input="updateLocationSuggestions"
-            placeholder="LIEU"
-            class="ml-2 text-gray-800 border p-2 rounded-md bg-gray-200 w-full"
-          />
-          <div
-            v-if="locationSuggestions.length"
-            class="absolute bg-white border mt-1"
-          >
-            <div
-              v-for="(location, index) in locationSuggestions"
-              :key="index"
-              @click="selectLocation(location)"
-              class="cursor-pointer p-2 hover:bg-gray-200"
-            >
-              {{ location }}
-            </div>
-          </div>
-          <input
-            type="text"
-            v-model="artistQuery"
-            @input="updateArtistSuggestions"
-            placeholder="TATOUEUR"
-            class="ml-2 text-gray-800 border p-2 rounded-md bg-gray-200 w-full"
-          />
-          <div
-            v-if="artistSuggestions.length"
-            class="absolute bg-white border mt-1"
-          >
-            <div
-              v-for="(artist, index) in artistSuggestions"
-              :key="index"
-              @click="selectArtist(artist)"
-              class="cursor-pointer p-2 hover:bg-gray-200"
-            >
-              {{ artist }}
-            </div>
-          </div>
-        </div>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <Card
@@ -118,13 +166,17 @@ const selectedTags = ref([]);
 const selectedTag = ref("");
 const availableTags = ref([]);
 
-const locationQuery = ref("");
-const artistQuery = ref("");
-const selectedLocation = ref("");
-const selectedArtist = ref("");
+const filters = ref({
+  location: "",
+  artist: "",
+  locations: [],
+  artists: [],
+});
 
 const locationSuggestions = ref([]);
 const artistSuggestions = ref([]);
+const showLocationSuggestions = ref(false);
+const showArtistSuggestions = ref(false);
 
 onMounted(async () => {
   try {
@@ -181,36 +233,48 @@ const updateAvailableTags = () => {
 };
 
 const updateLocationSuggestions = () => {
-  const query = locationQuery.value.toLowerCase();
+  const query = filters.value.location.toLowerCase();
   locationSuggestions.value = cards.value
     .map((card) => card.localisation)
     .filter((location) => location && location.toLowerCase().includes(query));
 };
 
 const updateArtistSuggestions = () => {
-  const query = artistQuery.value.toLowerCase();
+  const query = filters.value.artist.toLowerCase();
   artistSuggestions.value = cards.value
     .map((card) => card.nomArtiste)
     .filter((artist) => artist && artist.toLowerCase().includes(query));
 };
 
-const selectLocation = (location) => {
-  selectedLocation.value = location;
-  locationQuery.value = location;
-  locationSuggestions.value = [];
+const handleLocationClick = (selectedLocation) => {
+  filters.value.locations.push(selectedLocation);
+  filters.value.location = "";
+  showLocationSuggestions.value = false;
 };
 
-const selectArtist = (artist) => {
-  selectedArtist.value = artist;
-  artistQuery.value = artist;
-  artistSuggestions.value = [];
+const handleArtistClick = (selectedArtist) => {
+  filters.value.artists.push(selectedArtist);
+  filters.value.artist = "";
+  showArtistSuggestions.value = false;
+};
+
+const handleLocationRemove = (locationToRemove) => {
+  filters.value.locations = filters.value.locations.filter(
+    (location) => location !== locationToRemove
+  );
+};
+
+const handleArtistRemove = (artistToRemove) => {
+  filters.value.artists = filters.value.artists.filter(
+    (artist) => artist !== artistToRemove
+  );
 };
 
 const filteredCards = computed(() => {
   if (
     selectedTags.value.length === 0 &&
-    !selectedLocation.value &&
-    !selectedArtist.value
+    filters.value.locations.length === 0 &&
+    filters.value.artists.length === 0
   ) {
     return cards.value;
   }
@@ -218,16 +282,27 @@ const filteredCards = computed(() => {
     const matchesTags =
       selectedTags.value.length === 0 ||
       selectedTags.value.some((tag) => card.tags.includes(tag));
-    const matchesLocation =
-      !selectedLocation.value ||
-      card.localisation.includes(selectedLocation.value);
-    const matchesArtist =
-      !selectedArtist.value || card.nomArtiste.includes(selectedArtist.value);
-    return matchesTags && matchesLocation && matchesArtist;
+    const matchesLocations =
+      filters.value.locations.length === 0 ||
+      filters.value.locations.includes(card.localisation);
+    const matchesArtists =
+      filters.value.artists.length === 0 ||
+      filters.value.artists.includes(card.nomArtiste);
+    return matchesTags && matchesLocations && matchesArtists;
   });
 });
 </script>
 
 <style scoped>
-/* Add any additional styles here */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+li {
+  cursor: pointer;
+}
+li:hover {
+  background-color: #f0f0f0;
+}
 </style>
