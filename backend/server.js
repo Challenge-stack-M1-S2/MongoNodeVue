@@ -14,7 +14,7 @@ const Review = db.review;
 const Style = db.style;
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:8080",
 };
 
 app.use(cors(corsOptions));
@@ -29,7 +29,7 @@ DbConnect()
   .then(() => {
     console.log("Successfully connected to MongoDB.");
   })
-  .catch(err => {
+  .catch((err) => {
     console.error("Connection error", err);
     process.exit();
   });
@@ -42,9 +42,11 @@ app.get("/", (req, res) => {
 // routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
+
 require("./app/routes/tattoo.routes")(app);
 require("./app/routes/session.routes")(app);
 require("./app/routes/appointment.routes")(app); 
+
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8081;
