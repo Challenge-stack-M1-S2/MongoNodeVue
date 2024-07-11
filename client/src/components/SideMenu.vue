@@ -1,14 +1,14 @@
 <template>
   <div
-    class="sticky inset-y-0 left-0 w-64 shadow-lg z-50 p-4 w-1/6"
+    class="sticky inset-y-0 left-0 w-64 shadow-lg z-50 p-4 w-1/6 flex flex-column justify-center"
     :style="{
       'background-image':
         'url(' + require('@/assets/sidemenu-banner2.png') + ')',
     }"
     style="height: 911px"
   >
-    <nav class="w-full h-full">
-      <ul class="h-full flex flex-col justify-start mt-20">
+    <nav class="w-full">
+      <ul class="flex flex-col justify-start">
         <div>
           <li class="mt-4">
             <router-link
@@ -119,8 +119,8 @@ export default {
       return !!localStorage.getItem("userToken");
     },
     isAdmin() {
-      return localStorage.getItem("admin") === 'true';
-    }
+      return localStorage.getItem("admin") === "true";
+    },
   },
   methods: {
     logout() {
