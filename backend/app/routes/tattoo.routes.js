@@ -17,12 +17,11 @@ module.exports = function(app) {
  app.get("/api/tattoos/filter", controller.getTattoosByFilter);
  app.get("/api/tattoos/:id", controller.getTattooById);
 
- // Admin
+ // Admin / Artist
  app.post("/api/tattoos", [authJwt.verifyToken, authJwt.isAdmin], controller.createTattoo);
  app.put("/api/tattoos/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.updateTattoo);
  app.delete("/api/tattoos/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.deleteTattoo);
 
- //Artist
  app.get('/api/myTattoos', [authJwt.verifyToken, authJwt.isAdmin], controller.getTattoosByArtist);
 
 }

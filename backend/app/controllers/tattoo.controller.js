@@ -144,29 +144,53 @@ exports.createTattoo = async (req, res) => {
   }
 };
 
-exports.updateTattoo = async (req, res) => {
-  try {
-    const updatedTattoo = await Tattoo.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updatedTattoo) {
-      return res.status(404).json({ message: "Tattoo not found" });
-    }
-    res.status(200).json(updatedTattoo);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
+exports.updateTattoo = 
+  async (req, res) => {
+    try {
+      const userId = req.userId; // ID de l'utilisateur connecté
 
-exports.deleteTattoo = async (req, res) => {
-  try {
-    const deletedTattoo = await Tattoo.findByIdAndRemove(req.params.id);
-    if (!deletedTattoo) {
-      return res.status(404).json({ message: "Tattoo not found" });
+      const tattoo = await Tattoo.findById(req.params.id);
+      if (!tattoo) {
+        return res.status(404).json({ message: "Tattoo not found" });
+      }
+
+      // Vérifiez que l'utilisateur connecté est bien l'artiste propriétaire du tatouage
+      if (tattoo.artist_id.toString() !== userId) {
+        return res.status(403).json({ message: "Unauthorized action. Only the artist can update their own tattoo." });
+      }
+
+      const updatedTattoo = await Tattoo.findByIdAndUpdate(req.params.id, req.body, { new: true });
+
+      res.status(200).json(updatedTattoo);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
     }
-    res.status(200).json({ message: "Tattoo deleted successfully" });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  };
+
+
+exports.deleteTattoo =  // Middleware pour vérifier le token JWT
+  async (req, res) => {
+    try {
+      const userId = req.userId;
+
+      const tattoo = await Tattoo.findById(req.params.id);
+      if (!tattoo) {
+        return res.status(404).json({ message: "Tattoo not found" });
+      }
+
+      // Vérifiez que l'utilisateur connecté est bien l'artiste propriétaire du tatouage
+      if (tattoo.artist_id.toString() !== userId) {
+        return res.status(403).json({ message: "Unauthorized action. Only the artist can delete their own tattoo." });
+      }
+
+      await Tattoo.findByIdAndRemove(req.params.id);
+
+      res.status(200).json({ message: "Tattoo deleted successfully" });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
   }
-};
+;
 
 exports.getTattoosByArtist = async (req, res) => {
   try {
