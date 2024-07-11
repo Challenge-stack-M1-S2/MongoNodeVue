@@ -38,7 +38,7 @@
         >
       </div>
     </div>
-    <b-button class="font-sans" href="#" variant="primary">Voir</b-button>
+    <b-button href="#" variant="primary">Voir détail</b-button>
   </b-card>
 </template>
 

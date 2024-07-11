@@ -1,15 +1,14 @@
 <template>
-  <div class="inset-y-0 left-0 w-64 shadow-lg z-50">
     <div
-      class="sticky top-0 p-4"
+      class="inset-y-0 left-0 w-64 shadow-lg z-50 p-4"
       :style="{
         'background-image':
           'url(' + require('@/assets/sidemenu-banner2.png') + ')',
       }"
       style="height: 911px"
     >
-      <nav class="h-full">
-        <ul class="h-full flex flex-column justify-center">
+      <nav class="w-full h-full">
+        <ul class="h-full flex flex-column justify-start mt-20">
           <div>
             <li class="my-4">
               <router-link
@@ -66,11 +65,19 @@
                 Mes tattoos
               </router-link>
             </li>
-
-            <hr class="my-8 bg-black border-0" style="height: 1px" />
-          </div>
-          <div>
-            <li v-if="isUserTokenAbsent" class="mb-4">
+            <li class="mb-4">
+              <router-link
+                to="/map-box"
+                class="flex items-center text-gray-700 hover:text-black"
+              >
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/3082/3082383.png"
+                  class="fas fa-star mr-2"
+                />
+                Ma map
+              </router-link>
+            </li>
+            <li class="mb-4">
               <router-link
                 to="/login-form"
                 class="flex items-center text-gray-700 hover:text-black"
@@ -97,10 +104,10 @@
               </router-link>
             </li>
           </div>
+          
         </ul>
       </nav>
     </div>
-  </div>
 </template>
 
 <script>

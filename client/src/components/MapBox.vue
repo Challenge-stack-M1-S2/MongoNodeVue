@@ -18,7 +18,7 @@
             container: this.$refs.mapContainer,
             style: "mapbox://styles/mapbox/streets-v12",
             center: [4.84468, 45.74848],
-            zoom: 9,
+            zoom: 10,
           });
           this.map = map;
   
@@ -96,7 +96,7 @@
   
   <style>
   .map-container {
-    width: 50%;
+    width: 90%;
     height: 400px; /* Adjust height as needed */
     margin-bottom: 200px;
   }

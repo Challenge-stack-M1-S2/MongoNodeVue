@@ -5,6 +5,7 @@ import MyBookingsView from "@/views/MyBookingsView.vue";
 import TattooArtistView from "@/views/TattooArtistView.vue";
 import NotFoundView from "@/views/NotFoundView.vue";
 import LoginFormView from "@/views/LoginForm.vue";
+import MapBoxView from "@/views/MapSessionsView.vue";
 import TattooDetailsView from "@/views/TattooDetailsView.vue";
 
 const routes = [
@@ -43,6 +44,11 @@ const routes = [
     path: "/login-form",
     name: "NotFound",
     component: LoginFormView,
+  },
+  {
+    path: "/map-box",
+    name: "MapBox",
+    component: MapBoxView,
   },
 ];
 
