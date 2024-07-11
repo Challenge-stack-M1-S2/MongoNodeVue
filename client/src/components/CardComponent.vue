@@ -32,7 +32,7 @@
         >
       </div>
     </div>
-    <b-button href="#" variant="primary">Go somewhere</b-button>
+    <b-button href="#" variant="primary">Voir détails</b-button>
   </b-card>
 </template>
 
