@@ -99,8 +99,15 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "SideMenu",
+  data() {
+    return {
+      dataFragment: null,
+    };
+  },
   computed: {
     isUserTokenAbsent() {
       return !localStorage.getItem("userToken");
@@ -111,6 +118,30 @@ export default {
       localStorage.removeItem("userToken");
       this.$router.push("/"); // Redirect to login after logout
     },
+    fetchData() {
+      const userToken = localStorage.getItem("userToken");
+
+      if (!userToken) {
+        console.error("User token not found");
+        return;
+      }
+
+      axios
+        .get("http://localhost:8081/api/test/admin", {
+          headers: {
+            "x-access-token": `${userToken}`,
+          },
+        })
+        .then((response) => {
+          this.dataFragment = response.data; // assuming the fragment is in the response data
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    },
+  },
+  mounted() {
+    this.fetchData(); // Fetch data when the component is mounted
   },
 };
 </script>
