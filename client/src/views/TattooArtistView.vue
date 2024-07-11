@@ -1,45 +1,45 @@
 <template>
-  <b-container>
-    <h2 class="main-title text-center text-black">Tous les tattoos</h2>
-    <b-row>
-      <b-col v-for="(item, index) in images" :key="index" cols="12" md="4" class="mb-4">
-        <b-img :src="item.src" fluid alt="Image" />
-        <h5 class="text-center text-black">{{ item.title }}</h5>
-      </b-col>
-    </b-row>
-  </b-container>
+  <div>
+    <h1>Liste des Tatouages</h1>
+    <ul>
+      <li v-for="tattoo in tattoos" :key="tattoo.id">
+        <router-link :to="{ name: 'TattooDetailsPage', params: { id: tattoo.id.toString() }}">
+          <img :src="tattoo.imageUrl" :alt="tattoo.name" />
+        </router-link>
+        <p>{{ tattoo.name }}</p>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      images: [
-        { src: require('../assets/banner.png'), title: 'Titre 1' },
-        { src: require('../assets/banner.png'), title: 'Titre 2' },
-        { src: require('../assets/banner.png'), title: 'Titre 3' },
-        { src: require('../assets/banner.png'), title: 'Titre 4' },
+      tattoos: [
+        { id: 1, name: 'Tatouage 1', imageUrl: require('../assets/banner.png') },
+        { id: 2, name: 'Tatouage 2', imageUrl: require('../assets/banner.png') },
+        { id: 3, name: 'Tatouage 3', imageUrl: require('../assets/banner.png') },
       ]
     }
   }
 }
 </script>
 
-<style>
-/* Ajoutez des styles personnalisés si nécessaire */
-.main-title {
-  margin-top: 2rem; /* Espace au-dessus du titre principal */
-  margin-bottom: 2rem; /* Espace en dessous du titre principal */
-  font-size: 2.5rem; /* Taille de la police plus grande */
-}
-.mb-4 {
-  margin-bottom: 1.5rem; /* Ajustez la valeur selon vos besoins */
-}
-.text-center {
-  text-align: center;
-}
-.text-black {
+<style scoped>
+*{
   color: black;
 }
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  margin: 10px 0;
+}
+img {
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+}
 </style>
-

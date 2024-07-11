@@ -5,6 +5,7 @@ import MyBookingsView from "@/views/MyBookingsView.vue";
 import TattooArtistView from "@/views/TattooArtistView.vue";
 import NotFoundView from "@/views/NotFoundView.vue";
 import LoginFormView from "@/views/LoginForm.vue";
+import TattooDetailsView from "@/views/TattooDetailsView.vue";
 
 const routes = [
   {
@@ -23,9 +24,15 @@ const routes = [
     component: MyBookingsView,
   },
   {
-    path: "/tattoo-artist/:id", // Corrected dynamic segment syntax
+    path: "/tattoo-artist",
     name: "TattooArtistPage",
     component: TattooArtistView,
+  },
+  {
+    path: "/tattoo-details/:id",
+    name: "TattooDetailsPage",
+    component: TattooDetailsView,
+    props: true, // Pour passer l'ID en prop
   },
   {
     path: "/:pathMatch(.*)*",

@@ -58,7 +58,7 @@
             </li>
             <li class="mb-4">
               <router-link
-                to="/tattoo-artist/:id"
+                to="/tattoo-artist"
                 class="flex items-center text-gray-700 hover:text-black"
               >
                 <img
