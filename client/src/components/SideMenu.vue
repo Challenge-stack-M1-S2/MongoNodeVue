@@ -90,7 +90,7 @@
                 Login
               </router-link>
             </li>
-            <li v-else class="mb-4">
+            <!-- <li v-else class="mb-4">
               <router-link
                 to="/"
                 @click="logout"
@@ -102,7 +102,7 @@
                 />
                 Se Déconnecter
               </router-link>
-            </li>
+            </li> -->
           </div>
           
         </ul>

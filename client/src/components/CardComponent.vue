@@ -1,10 +1,8 @@
 <template>
   <b-card
-    :title="titre.toUpperCase()"
-    :img-src="imageSrc"
-    img-top
+    :title="titre"
     tag="article"
-    class="max-w-xs mb-4 font-semibold font-mono text-lg"
+    class="max-w-xs h-72 mb-4"
     style="height: 38rem"
   >
     <img :src="imageSrc" alt="Card Image" class="w-full h-300px object-cover" />
@@ -23,22 +21,18 @@
           alt="Artist"
           class="h-4"
         />
-        <span
-          class="ml-2 px-2 rounded-xl"
-          style="background-color: #eeeafb; color: #585163"
-          >{{ nomArtiste }}</span
-        >
+        <span class="ml-2">{{ nomArtiste }}</span>
       </div>
       <div class="flex flex-wrap">
         <span
           v-for="(tag, index) in tags"
           :key="index"
-          class="bg-gray-200 rounded-full px-3 py-1 text-sm mr-2 mb-2 font-sans"
+          class="bg-gray-200 rounded-full px-3 py-1 text-sm mr-2 mb-2"
           >{{ tag }}</span
         >
       </div>
     </div>
-    <b-button href="#" variant="primary">Voir détail</b-button>
+    <b-button href="#" variant="primary">Go somewhere</b-button>
   </b-card>
 </template>
 
@@ -72,8 +66,5 @@ img {
   font-size: 14px;
   margin-right: 8px;
   margin-bottom: 8px;
-}
-
-.card-title {
 }
 </style>
