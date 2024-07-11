@@ -42,7 +42,7 @@ const routes = [
   },
   {
     path: "/login-form",
-    name: "NotFound",
+    name: "LoginForm",
     component: LoginFormView,
   },
   {

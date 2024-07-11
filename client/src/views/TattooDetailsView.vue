@@ -5,7 +5,7 @@
       class="content max-w-4xl mx-auto px-4 py-8 flex flex-col justify-center items-center min-h-screen"
     >
       <h1
-        class="w-full text-4xl font-extrabold mb-4 text-white bg-gradient-to-r from-gray-800 to-gray-900 p-3 rounded shadow-lg"
+        class="w-full text-4xl font-extrabold mb-4 text-white bg-gradient-to-r from-gray-800 to-gray-900 p-3 rounded shadow-2xl"
       >
         Détails du Tatouage
       </h1>
@@ -22,7 +22,7 @@
           />
         </div>
         <div
-          class="w-full md:w-1/2 bg-cover p-6 bg-gray-900 bg-opacity-75 rounded-lg shadow-lg flex flex-col justify-center"
+          class="w-full md:w-1/2 bg-cover p-6 bg-gray-900 bg-opacity-75 rounded-lg shadow-2xl flex flex-col justify-center"
           :style="{
             'background-image': 'url(' + require('@/assets/fond.png') + ')',
           }"
@@ -62,6 +62,7 @@
           <div class="flex justify-center">
             <button
               class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700"
+              @click="openModal"
             >
               Réserver
             </button>
@@ -71,10 +72,53 @@
 
       <div v-else class="text-center mt-8">
         <p
-          class="text-lg text-white bg-gradient-to-r from-gray-800 to-gray-900 p-3 rounded shadow-lg"
+          class="text-lg text-white bg-gradient-to-r from-gray-800 to-gray-900 p-3 rounded shadow-2xl"
         >
           Chargement des détails du tatouage...
         </p>
+      </div>
+    </div>
+
+    <!-- Modal for booking -->
+    <div
+      v-if="showModal"
+      class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50"
+    >
+      <div class="bg-white p-6 rounded shadow-lg max-w-lg w-full">
+        <h3 class="text-2xl font-bold text-gray-800 mb-4">
+          Réserver une session
+        </h3>
+        <label for="session" class="block mb-2 font-semibold text-gray-800"
+          >Sélectionner une date :</label
+        >
+        <select
+          id="session"
+          v-model="selectedSession"
+          class="w-full p-2 border rounded mb-4 text-black"
+        >
+          <option
+            v-for="session in availableSessions"
+            :key="session._id"
+            :value="session"
+            class="text-black"
+          >
+            {{ formatSession(session) }}
+          </option>
+        </select>
+        <div class="flex justify-end">
+          <button
+            @click="closeModal"
+            class="bg-gray-500 text-white font-bold py-2 px-4 rounded mr-2 hover:bg-gray-700"
+          >
+            Annuler
+          </button>
+          <button
+            @click="bookSession"
+            class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700"
+          >
+            Confirmer
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -92,10 +136,20 @@ export default {
   data() {
     return {
       tattooDetails: null,
+      sessions: null,
+      showModal: false,
+      selectedSession: null,
     };
   },
   created() {
     this.fetchTattooDetails();
+  },
+  computed: {
+    availableSessions() {
+      return this.sessions
+        ? this.sessions.filter((session) => session.status === "available")
+        : [];
+    },
   },
   methods: {
     fetchTattooDetails() {
@@ -107,11 +161,53 @@ export default {
         })
         .then((response) => {
           this.tattooDetails = response.data.tattoo;
-          console.log(this.tattooDetails);
+          this.sessions = response.data.sessions;
         })
         .catch((error) => {
           console.error("Error fetching tattoo details:", error);
         });
+    },
+    openModal() {
+      if (localStorage.getItem("userToken")) {
+        this.showModal = true;
+      } else {
+        this.$router.push("/login-form");
+      }
+    },
+    closeModal() {
+      this.showModal = false;
+      this.selectedSession = null;
+    },
+    bookSession() {
+      if (this.selectedSession) {
+        axios
+          .post(
+            `http://localhost:8081/api/appointments`,
+            {
+              session_id: this.selectedSession._id,
+            },
+            {
+              headers: {
+                "x-access-token": localStorage.getItem("userToken"),
+              },
+            }
+          )
+          .then(() => {
+            alert("Réservation confirmée!");
+            this.closeModal();
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.error("Error booking session:", error);
+            alert("Erreur lors de la réservation, veuillez réessayer.");
+          });
+      }
+    },
+    formatSession(session) {
+      const start = new Date(session.start_datetime);
+      return `${start.toLocaleDateString()} à ${start.toLocaleTimeString()} - ${
+        session.location.formattedAddress
+      }`;
     },
   },
 };
