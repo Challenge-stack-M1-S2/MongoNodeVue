@@ -20,11 +20,8 @@ module.exports = function(app) {
   app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
 
   // Tatoueur
-  app.get("/api/test/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
-  );
-
-  app.get('/api/user/info', [authJwt.verifyToken], controller.getUserInfo);
+    app.get("/api/test/admin", [authJwt.verifyToken, authJwt.isAdmin], (req, res) => {
+    res.status(200).send({ message: "User is an admin!" });
+  });
 
 };
