@@ -30,9 +30,8 @@ onUnmounted(() => {
 
 <style scoped>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: Neue Plak, -apple-system, blinkmacsystemfont, roboto,
+    Helvetica Neue, helvetica, tahoma, arial, sans-serif;
   text-align: center;
   color: #ffffff; /* Text color when navbar turns black */
 }
