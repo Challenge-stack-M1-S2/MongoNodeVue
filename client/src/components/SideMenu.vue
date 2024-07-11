@@ -1,6 +1,6 @@
 <template>
   <div
-    class="sticky inset-y-0 left-0 w-64 shadow-lg z-50 p-4"
+    class="sticky inset-y-0 left-0 w-64 shadow-lg z-50 p-4 w-1/6"
     :style="{
       'background-image':
         'url(' + require('@/assets/sidemenu-banner2.png') + ')',

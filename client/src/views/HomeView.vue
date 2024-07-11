@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <SideMenu class="w-1/6" />
+    <SideMenu />
     <div class="w-5/6 p-4">
       <img
         class="rounded-3xl"
