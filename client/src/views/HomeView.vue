@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
-    <SideMenu class="w-1/4" />
-    <div class="w-3/4 p-4">
+    <SideMenu class="w-1/6" />
+    <div class="w-5/6 p-4">
       <img
         class="rounded-3xl"
         :src="banner"
@@ -349,6 +349,7 @@ ul {
   padding: 0;
   margin: 0;
 }
+
 
 li {
   cursor: pointer;

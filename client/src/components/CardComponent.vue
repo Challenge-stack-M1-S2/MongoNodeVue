@@ -1,12 +1,11 @@
 <template>
   <b-card
     :title="titre"
-    :img-src="imageSrc"
-    img-top
     tag="article"
     class="max-w-xs mb-4"
-    style="height: 38rem"
+    style="height: 36rem"
   >
+    <img :src="imageSrc" alt="Card Image" class="w-full h-300px object-cover" />
     <div class="p-4">
       <div class="flex items-center mb-2">
         <img
@@ -52,6 +51,10 @@ export default {
 <style scoped>
 img {
   height: 30px;
+}
+
+.h-300px {
+  height: 300px !important;
 }
 
 .tag {
