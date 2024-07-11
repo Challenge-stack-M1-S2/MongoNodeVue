@@ -8,10 +8,14 @@
   <div id="app">
     <RouterView />
   </div>
+  <div id="layout">
+    <MapBox />
+  </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
+
 
 const scrolled = ref(false);
 
@@ -28,11 +32,21 @@ onUnmounted(() => {
 });
 </script>
 
+<script>
+  import MapBox from './components/MapBox.vue';
+  import '../node_modules/mapbox-gl/dist/mapbox-gl.css';
+
+  export default {
+    components: {
+      MapBox
+    }
+  };
+</script>
+
 <style scoped>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: Neue Plak, -apple-system, blinkmacsystemfont, roboto,
+    Helvetica Neue, helvetica, tahoma, arial, sans-serif;
   text-align: center;
   color: #ffffff; /* Text color when navbar turns black */
 }
