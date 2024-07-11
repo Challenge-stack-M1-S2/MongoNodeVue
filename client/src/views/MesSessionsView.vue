@@ -1,46 +1,49 @@
 <template>
-    <div>
-      <h1 class="text-2xl font-bold mb-4">Mes Sessions</h1>
-      
-      <!-- Bouton Ajouter Session -->
-      <button @click="openModal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-4 rounded">
-        Ajouter une session
-      </button>
-  
-      <!-- Modal pour ajouter une session -->
-      <Modal :isOpen="isModalOpen" @close="closeModal" @submit="addSession"></Modal>
-  
-      <!-- Liste des Sessions -->
-      <ul>
-        <li v-for="session in sessions" :key="session._id" class="mb-4 p-4 border rounded flex justify-between">
-                   
-          <!-- Div pour les détails et les boutons -->
-          <div class="w-2/3 pl-4 flex flex-col justify-between">
-            <div>
-              <h2 class="text-lg font-semibold">{{ session.tattoo_id.description }}</h2>
-              <p class="text-gray-700">{{ session.location.formattedAddress }}</p>
-              <div class="mt-2">
-                <p class="text-sm text-gray-500">Début: {{ formatDate(session.start_datetime) }}</p>
-                <p class="text-sm text-gray-500">Fin: {{ formatDate(session.end_datetime) }}</p>
+  <div class="flex jsutify-start">
+    <SideMenu class="w-1/4 h-full" />
+      <div class="p-4">
+        <h1 class="text-2xl text-black font-bold mb-4">Mes Sessions</h1>
+        
+        <!-- Bouton Ajouter Session -->
+        <button @click="openModal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-4 rounded">
+          Ajouter une session
+        </button>
+    
+        <!-- Modal pour ajouter une session -->
+        <Modal :isOpen="isModalOpen" @close="closeModal" @submit="addSession"></Modal>
+    
+        <!-- Liste des Sessions -->
+        <ul>
+          <li v-for="session in sessions" :key="session._id" class="mb-4 p-4 border rounded flex justify-between">
+                    
+            <!-- Div pour les détails et les boutons -->
+            <div class="w-2/3 pl-4 flex flex-col justify-between">
+              <div>
+                <h2 class="text-lg font-semibold">{{ session.tattoo_id.description }}</h2>
+                <p class="text-gray-700">{{ session.location.formattedAddress }}</p>
+                <div class="mt-2">
+                  <p class="text-sm text-gray-500">Début: {{ formatDate(session.start_datetime) }}</p>
+                  <p class="text-sm text-gray-500">Fin: {{ formatDate(session.end_datetime) }}</p>
+                </div>
+              </div>
+              
+              <!-- Boutons de gestion -->
+              <div class="mt-4 flex">
+                <button @click="editSession(session._id)" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 mr-2 rounded">
+                  Modifier
+                </button>
+                <button @click="deleteSession(session._id)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                  Supprimer
+                </button>
               </div>
             </div>
-            
-            <!-- Boutons de gestion -->
-            <div class="mt-4 flex">
-              <button @click="editSession(session._id)" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 mr-2 rounded">
-                Modifier
-              </button>
-              <button @click="deleteSession(session._id)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                Supprimer
-              </button>
+            <!-- Div pour l'image -->
+            <div class="w-1/6 flex items-center justify-end">
+              <img :src="session.tattoo_id.image_url" alt="Tattoo Image" class="h-full object-cover rounded">
             </div>
-          </div>
-          <!-- Div pour l'image -->
-          <div class="w-1/6 flex items-center justify-end">
-            <img :src="session.tattoo_id.image_url" alt="Tattoo Image" class="h-full object-cover rounded">
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </template>
   
@@ -48,6 +51,7 @@
   import { ref, onMounted } from 'vue';
   import axios from 'axios';
   import Modal from '../components/NewSessionPop.vue';
+  
   
   const sessions = ref([]);
   const isModalOpen = ref(false);
@@ -110,6 +114,16 @@
   
   onMounted(fetchSessions);
   </script>
+
+<script>
+import SideMenu from "@/components/SideMenu.vue";
+
+export default {
+  components: {
+    SideMenu,
+  }
+};
+</script>
   
   <style scoped>
   /* Ajoutez vos styles spécifiques pour cette vue ici */

@@ -1,5 +1,7 @@
 <template>
-    <div>
+  <div class="flex">
+    <SideMenu />
+    <div class="w-5/6 p-4">
       <img
         class="rounded-3xl"
         :src="banner"
@@ -166,12 +168,14 @@
         />
       </div>
     </div>
+  </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import axios from "axios";
 import Card from "@/components/CardComponent.vue";
+import SideMenu from "@/components/SideMenu.vue";
 import banner from "@/assets/banner2.png";
 
 const cards = ref([]);

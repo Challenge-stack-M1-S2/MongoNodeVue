@@ -5,15 +5,13 @@
       rel="stylesheet"
     />
   </head>
-  <div class="flex">
-    <SideMenu class="w-1/6"/>,
-    <RouterView class="w-5/6 p-4"/>
+  <div id="app">
+    <RouterView />
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
-
 
 
 const scrolled = ref(false);
@@ -31,24 +29,14 @@ onUnmounted(() => {
 });
 </script>
 
-<script>
-import SideMenu from '@/components/SideMenu.vue';
-
-export default {
-  components: {
-    SideMenu
-  }}
-
-</script>
 
 
 <style scoped>
-
 #app {
   font-family: Neue Plak, -apple-system, blinkmacsystemfont, roboto,
     Helvetica Neue, helvetica, tahoma, arial, sans-serif;
-  text-align: center;
-  /*color: #ffffff;  Text color when navbar turns black */
+  /* text-align: center; */
+  color: #ffffff; /* Text color when navbar turns black */
 }
 
 .nav-link {
