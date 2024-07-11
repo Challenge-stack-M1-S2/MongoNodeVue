@@ -8,9 +8,6 @@
   <div id="app">
     <RouterView />
   </div>
-  <div id="layout">
-    <MapBox />
-  </div>
 </template>
 
 <script setup>
@@ -32,16 +29,7 @@ onUnmounted(() => {
 });
 </script>
 
-<script>
-  import MapBox from './components/MapBox.vue';
-  import '../node_modules/mapbox-gl/dist/mapbox-gl.css';
 
-  export default {
-    components: {
-      MapBox
-    }
-  };
-</script>
 
 <style scoped>
 #app {
