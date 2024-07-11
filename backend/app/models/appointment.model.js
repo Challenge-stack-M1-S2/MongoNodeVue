@@ -4,7 +4,7 @@ module.exports = (mongoose) => {
       new mongoose.Schema({
         user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
         session_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Session', required: true },
-        status: { type: String, enum: ['not reserved', 'reserved', 'finished'], default: 'not reserved' },
+        status: { type: String, enum: ['reserved', 'canceled', 'finished'], default: 'reserved' },
         created_at: { type: Date, default: Date.now }
       })
     );
