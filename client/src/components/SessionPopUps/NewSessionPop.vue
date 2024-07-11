@@ -21,13 +21,6 @@
           <input v-model="address" type="text" id="address" class="w-full p-2 border rounded">
         </div>
         <div class="mb-4">
-          <label for="coordinates" class="block text-gray-700">Coordonnées</label>
-          <div class="flex">
-            <input v-model="longitude" type="number" step="any" placeholder="Longitude" class="w-1/2 p-2 border rounded mr-2">
-            <input v-model="latitude" type="number" step="any" placeholder="Latitude" class="w-1/2 p-2 border rounded">
-          </div>
-        </div>
-        <div class="mb-4">
           <label for="start_datetime" class="block text-gray-700">Date de début</label>
           <input v-model="startDatetime" type="datetime-local" id="start_datetime" class="w-full p-2 border rounded">
         </div>

@@ -15,7 +15,10 @@ module.exports = function(app) {
    /*** User non connecté ***/
    app.get("/api/sessions", controller.getSessions); 
 
-   app.post("/api/sessions", controller.addSessions);
+  /*** User connecté ***/
+   app.post("/api/sessions", [authJwt.verifyToken, authJwt.isAdmin], controller.addSessions);
+
+   app.delete("/api/sessions/:id",[authJwt.verifyToken, authJwt.isAdmin], controller.deleteSession);
   
   }
 
