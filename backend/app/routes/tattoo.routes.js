@@ -22,4 +22,7 @@ module.exports = function(app) {
  app.put("/api/tattoos/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.updateTattoo);
  app.delete("/api/tattoos/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.deleteTattoo);
 
+ //Artist
+ app.get('/api/myTattoos', [authJwt.verifyToken, authJwt.isAdmin], controller.getTattoosByArtist);
+
 }

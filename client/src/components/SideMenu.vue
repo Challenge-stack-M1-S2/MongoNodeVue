@@ -10,7 +10,7 @@
       <nav class="w-full h-full">
         <ul class="h-full flex flex-column justify-start mt-20">
           <div>
-            <li class="my-4">
+            <li class="mt-4">
               <router-link
                 to="/"
                 class="flex items-center text-gray-700 hover:text-black"
@@ -25,7 +25,7 @@
             </li>
           </div>
           <div>
-            <hr class="my-8 bg-black border-0" style="height: 1px" />
+            <hr class="my-4 bg-black border-0" style="height: 1px" />
             <li v-if="!isUserTokenAbsent" class="mb-4">
               <router-link
                 to="/seances"
