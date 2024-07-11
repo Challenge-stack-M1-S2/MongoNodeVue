@@ -1,6 +1,6 @@
 <template>
   <div
-    class="sticky inset-y-0 left-0 w-64 shadow-lg z-50 p-4 w-1/6 flex flex-column justify-center"
+    class="sticky inset-y-0 left-0 w-64 shadow-lg z-50 p-4 w-1/6 flex flex-column justify-start"
     :style="{
       'background-image':
         'url(' + require('@/assets/sidemenu-banner2.png') + ')',
@@ -8,7 +8,7 @@
     style="height: 911px"
   >
     <nav class="w-full">
-      <ul class="flex flex-col justify-start">
+      <ul class="flex flex-col justify-start mt-20">
         <div>
           <li class="mt-4">
             <router-link
