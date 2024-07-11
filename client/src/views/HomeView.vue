@@ -162,6 +162,7 @@
           :localisation="card.localisation"
           :nom-artiste="card.nomArtiste"
           :tags="card.tags"
+          :id="card.id"
         />
       </div>
     </div>
@@ -200,8 +201,10 @@ onMounted(async () => {
       localisation: tattoo.location || "Unknown",
       nomArtiste: tattoo.artist_id.username || "Unknown",
       tags: [tattoo.style_id.style_name],
+      id: tattoo._id,
     }));
     cards.value = fetchedCards;
+    console.log(cards);
 
     const tagsSet = new Set();
     const locationsSet = new Set();
@@ -345,7 +348,6 @@ ul {
   padding: 0;
   margin: 0;
 }
-
 
 li {
   cursor: pointer;

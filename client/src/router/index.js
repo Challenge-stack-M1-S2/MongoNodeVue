@@ -59,7 +59,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory("/"), // Hardcoded base URL
+  history: createWebHistory(process.env.BASE_URL),
   routes,
 });
 
