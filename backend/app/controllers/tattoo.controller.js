@@ -126,8 +126,10 @@ exports.getTattooById = async (req, res) => {
 
 
 
+
 exports.createTattoo = async (req, res) => {
-  const { artist_id, style_id, image_url, description, price } = req.body;
+  const { style_id, image_url, description, price } = req.body;
+  const artist_id = req.userId; // Récupère l'artist_id à partir de req.userId
 
   try {
     const newTattoo = new Tattoo({
@@ -144,6 +146,7 @@ exports.createTattoo = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 exports.updateTattoo = 
   async (req, res) => {
