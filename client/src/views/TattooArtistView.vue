@@ -3,6 +3,10 @@
     <SideMenu class="w-1/4 h-full" />
     <div class="w-3/4 p-4 overflow-y-auto">
       <h1 class="text-6xl font-bold text-gray-800 mb-4">Liste des Tatouages</h1>
+      <!-- Bouton Ajouter Session -->
+      <button @click="openModal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-4 rounded">
+        Ajouter un tatouage
+      </button>
       <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
       <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div
@@ -17,6 +21,15 @@
           <p class="text-black"><strong>Artist:</strong> {{ tattoo.artist_id.username }}</p>
           <p class="text-black"><strong>Style:</strong> {{ tattoo.style_id.style_name }}</p>
           <p class="text-black"><strong>Price:</strong> {{ tattoo.price }}</p>
+          <!-- Boutons de gestion -->
+          <div class="mt-4 flex">
+            <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 mr-2 rounded">
+              Modifier
+            </button>
+            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+              Supprimer
+            </button>
+          </div>
         </div>
       </div>
     </div>
