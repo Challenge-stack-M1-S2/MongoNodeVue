@@ -61,10 +61,18 @@
           <!-- Ajoutez ici d'autres détails si nécessaire -->
           <div class="flex justify-center">
             <button
+              v-if="availableSessions.length > 0"
               class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700"
               @click="openModal"
             >
               Réserver
+            </button>
+            <button
+              v-else
+              class="bg-gray-400 text-white font-bold py-2 px-4 rounded cursor-not-allowed"
+              style="pointer-events: none"
+            >
+              Indisponible
             </button>
           </div>
         </div>
@@ -225,5 +233,9 @@ export default {
 }
 .icon {
   height: 35px;
+}
+.cursor-not-allowed {
+  cursor: not-allowed;
+  opacity: 0.6; /* Opacity to visually indicate disabled state */
 }
 </style>

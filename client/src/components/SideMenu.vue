@@ -126,7 +126,7 @@ export default {
     logout() {
       localStorage.removeItem("userToken");
       localStorage.removeItem("admin");
-      this.$router.push("/"); // Redirect to login after logout
+      this.$router.push("/");
     },
   },
 };
