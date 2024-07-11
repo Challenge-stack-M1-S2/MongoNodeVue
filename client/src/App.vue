@@ -36,7 +36,7 @@ onUnmounted(() => {
   font-family: Neue Plak, -apple-system, blinkmacsystemfont, roboto,
     Helvetica Neue, helvetica, tahoma, arial, sans-serif;
   /* text-align: center; */
-  color: #ffffff; /* Text color when navbar turns black */
+  /*color: #ffffff;  Text color when navbar turns black */
 }
 
 .nav-link {
