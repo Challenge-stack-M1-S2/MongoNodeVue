@@ -2,7 +2,7 @@
   <b-card
     :title="titre"
     tag="article"
-    class="max-w-xs h-72 mb-4"
+    class="max-w-xs h-72 mb-4 font-bold text-gray-800"
     style="height: 38rem"
   >
     <img :src="imageSrc" alt="Card Image" class="w-full h-300px object-cover" />
@@ -21,7 +21,11 @@
           alt="Artist"
           class="h-4"
         />
-        <span class="ml-2">{{ nomArtiste }}</span>
+        <span
+          class="ml-2 px-2 rounded-md"
+          style="background-color: #eeeafb; color: #585163"
+          >{{ nomArtiste }}</span
+        >
       </div>
       <div class="flex flex-wrap">
         <span
@@ -32,7 +36,12 @@
         >
       </div>
     </div>
-    <b-button href="#" variant="primary">Voir détails</b-button>
+    <b-button
+      :to="{ name: 'TattooDetailsPage', params: { id: id } }"
+      variant="primary"
+    >
+      Voir détails</b-button
+    >
   </b-card>
 </template>
 
@@ -44,6 +53,7 @@ export default {
     localisation: String,
     nomArtiste: String,
     tags: Array,
+    id: String,
   },
 };
 </script>
