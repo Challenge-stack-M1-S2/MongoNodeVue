@@ -32,7 +32,12 @@
         >
       </div>
     </div>
-    <b-button href="#" variant="primary">Voir détails</b-button>
+    <b-button
+      :to="{ name: 'TattooDetailsPage', params: { id: id } }"
+      variant="primary"
+    >
+      Voir détails</b-button
+    >
   </b-card>
 </template>
 
@@ -44,6 +49,7 @@ export default {
     localisation: String,
     nomArtiste: String,
     tags: Array,
+    id: String,
   },
 };
 </script>
