@@ -50,7 +50,7 @@
 <script>
 import axios from 'axios';
 import SideMenu from '@/components/SideMenu.vue';
-import Modal from '../components/NewSessionPop.vue';
+import Modal from '../components/SessionPopUps/NewSessionPop.vue';
 import NewTattoo from '../components/NewTattoo.vue';
 import EditTattoo from '../components/EditTattoo.vue'; // Import du composant NewTattoo
 import SiteFooter from '@/components/SiteFooter.vue';

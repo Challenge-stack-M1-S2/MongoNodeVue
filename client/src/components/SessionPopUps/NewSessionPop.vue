@@ -1,4 +1,4 @@
-<!-- Modal.vue -->
+Modal.vue
 <template>
   <div v-if="isOpen" class="fixed inset-0 flex items-center justify-center z-50">
     <div class="fixed inset-0 bg-black opacity-50 z-40"></div>
@@ -19,13 +19,6 @@
         <div class="mb-4">
           <label for="address" class="block text-gray-700">Adresse</label>
           <input v-model="address" type="text" id="address" class="w-full p-2 border rounded">
-        </div>
-        <div class="mb-4">
-          <label for="coordinates" class="block text-gray-700">Coordonnées</label>
-          <div class="flex">
-            <input v-model="longitude" type="number" step="any" placeholder="Longitude" class="w-1/2 p-2 border rounded mr-2">
-            <input v-model="latitude" type="number" step="any" placeholder="Latitude" class="w-1/2 p-2 border rounded">
-          </div>
         </div>
         <div class="mb-4">
           <label for="start_datetime" class="block text-gray-700">Date de début</label>
