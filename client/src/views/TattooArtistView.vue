@@ -38,16 +38,19 @@
         </div>
       </div>
     </div>
+    <SiteFooter/>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import SideMenu from '@/components/SideMenu.vue';
+import SiteFooter from '@/components/SiteFooter.vue';
 
 export default {
   components: {
-    SideMenu
+    SideMenu,
+    SiteFooter
   },
   data() {
     return {
