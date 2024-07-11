@@ -24,7 +24,7 @@ export default {
     return {
       username: '',
       password: '',
-      errorMessage: ''
+      errorMessage: '',
     };
   },
   methods: {
@@ -38,23 +38,35 @@ export default {
         // Stocker le token JWT
         const token = response.data.accessToken;
         localStorage.setItem('userToken', token);
-        console.log(token)
 
-        // Obtenir les informations utilisateur
-        const userInfoResponse = await axios.get('http://localhost:8081/api/user/info', {
-          headers: { 'x-access-token': token }
-        });
-
-        // Stocker l'ID de l'utilisateur
-        localStorage.setItem('userId', userInfoResponse.data._id);
-        // console.log(localStorage.setItem('userId', userInfoResponse.data._id))
-
-        // Rediriger l'utilisateur vers le tableau de bord
-        this.$router.push('/my-bookings');
+        // Vérifier si l'utilisateur est un admin et rediriger en conséquence
+        await this.checkAdminStatus();
       } catch (error) {
         console.error('Error during login:', error);
-        
+
         this.errorMessage = error.response ? error.response.data.message : error.message;
+      }
+    },
+    async checkAdminStatus() {
+      try {
+        const token = localStorage.getItem('userToken');
+        const response = await axios.get('http://localhost:8081/api/test/admin', {
+          headers: {
+            'x-access-token': token
+          }
+        });
+
+        // Rediriger selon le statut d'admin
+        if (response.data.message === "User is an admin!") {
+          this.$router.push('/my-sessions');
+        } else {
+          this.$router.push('/my-bookings');
+        }
+      } catch (error) {
+        console.error('Error checking admin status:', error);
+
+        // Rediriger vers /my-bookings en cas d'erreur ou si l'utilisateur n'est pas admin
+        this.$router.push('/my-bookings');
       }
     }
   }
@@ -64,8 +76,9 @@ export default {
 <style scoped>
 .login-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   height: 100vh;
 }
 
