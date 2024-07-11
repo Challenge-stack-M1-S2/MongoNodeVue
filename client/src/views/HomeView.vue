@@ -202,13 +202,12 @@ onMounted(async () => {
     const fetchedCards = response.data.map((tattoo) => ({
       titre: tattoo.description,
       imageSrc: tattoo.image_url,
-      localisation: tattoo.location || "Unknown",
+      localisation: tattoo.artist_id.base_location || "Unknown",
       nomArtiste: tattoo.artist_id.username || "Unknown",
       tags: [tattoo.style_id.style_name],
       id: tattoo._id,
     }));
     cards.value = fetchedCards;
-    console.log(cards);
 
     const tagsSet = new Set();
     const locationsSet = new Set();
