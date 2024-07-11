@@ -28,7 +28,7 @@
           <hr class="my-4 bg-black border-0" style="height: 1px" />
           <li v-if="isAdmin" class="mb-4">
             <router-link
-              to="/seances"
+              to="/mes-sessions"
               class="flex items-center text-gray-700 hover:text-black"
               exact-active-class="router-link-exact-active"
             >
