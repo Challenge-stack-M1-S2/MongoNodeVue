@@ -4,7 +4,8 @@
     :img-src="imageSrc"
     img-top
     tag="article"
-    class="max-w-xs h-80 mb-4"
+    class="max-w-xs mb-4"
+    style="height: 38rem"
   >
     <div class="p-4">
       <div class="flex items-center mb-2">

@@ -1,82 +1,101 @@
 <template>
-  <div class="sticky inset-y-0 left-0 w-64 bg-white shadow-lg z-50">
-    <div class="p-4">
-      <h2 class="text-xl font-bold mb-4">Mon Compte</h2>
-      <nav>
-        <ul>
-          <li class="mb-4">
-            <router-link
-              to="/"
-              class="flex items-center text-gray-700 hover:text-black"
-            >
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/3388/3388840.png"
-                class="fas fa-star mr-2"
-              />
-              Accueil
-            </router-link>
-          </li>
-          <li class="mb-4">
-            <router-link
-              to="/avis"
-              class="flex items-center text-gray-700 hover:text-black"
-            >
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/5764/5764103.png"
-                class="fas fa-star mr-2"
-              />
-              Mes Avis
-            </router-link>
-          </li>
-          <li class="mb-4">
-            <router-link
-              to="/my-bookings"
-              class="flex items-center text-gray-700 hover:text-black"
-            >
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/16702/16702410.png"
-                class="fas fa-star mr-2"
-              />
-              Mes réservations
-            </router-link>
-          </li>
-          <li class="mb-4">
-            <router-link
-              to="/tattoo-artist/:id"
-              class="flex items-center text-gray-700 hover:text-black"
-            >
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/4481/4481871.png"
-                class="fas fa-star mr-2"
-              />
-              Mes tattoos
-            </router-link>
-          </li>
-          <li class="mb-4">
-            <router-link
-              to="/login-form"
-              class="flex items-center text-gray-700 hover:text-black"
-            >
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/11155/11155240.png"
-                class="fas fa-star mr-2"
-              />
-              Login
-            </router-link>
-          </li>
-          <hr style="width: 50%; text-align: left; margin-left: 0" />
-          <li class="mb-4">
-            <router-link
-              to="/logout"
-              class="flex items-center text-gray-700 hover:text-black"
-            >
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/3726/3726291.png"
-                class="fas fa-star mr-2"
-              />
-              Se Déconnecter
-            </router-link>
-          </li>
+  <div
+    class="inset-y-0 left-0 w-64 shadow-lg z-50"
+    :style="{
+      'background-image':
+        'url(' + require('@/assets/sidemenu-banner.png') + ')',
+    }"
+  >
+    <div
+      class="sticky top-0 p-4"
+      :style="{
+        'background-image':
+          'url(' + require('@/assets/sidemenu-banner2.png') + ')',
+      }"
+      style="height: 911px"
+    >
+      <nav class="h-full">
+        <ul class="h-full flex flex-column justify-center">
+          <div>
+            <li class="my-4">
+              <router-link
+                to="/"
+                class="flex items-center text-gray-700 hover:text-black"
+              >
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/3388/3388840.png"
+                  class="fas fa-star mr-2"
+                />
+                Accueil
+              </router-link>
+            </li>
+          </div>
+          <div>
+            <hr class="my-8 bg-black border-0" style="height: 1px" />
+            <li class="mb-4">
+              <router-link
+                to="/avis"
+                class="flex items-center text-gray-700 hover:text-black"
+              >
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/5764/5764103.png"
+                  class="fas fa-star mr-2"
+                />
+                Mes Avis
+              </router-link>
+            </li>
+            <li class="mb-4">
+              <router-link
+                to="/my-bookings"
+                class="flex items-center text-gray-700 hover:text-black"
+              >
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/16702/16702410.png"
+                  class="fas fa-star mr-2"
+                />
+                Mes réservations
+              </router-link>
+            </li>
+            <li class="mb-4">
+              <router-link
+                to="/tattoo-artist/:id"
+                class="flex items-center text-gray-700 hover:text-black"
+              >
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/4481/4481871.png"
+                  class="fas fa-star mr-2"
+                />
+                Mes tattoos
+              </router-link>
+            </li>
+            <li class="mb-4">
+              <router-link
+                to="/login-form"
+                class="flex items-center text-gray-700 hover:text-black"
+              >
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/12765/12765311.png"
+                  class="fas fa-star mr-2"
+                />
+                Login
+              </router-link>
+            </li>
+            <hr class="my-8 bg-black border-0" style="height: 1px" />
+          </div>
+          <div>
+            <li class="mb-4">
+              <router-link
+                to="/logout"
+                class="flex items-center text-gray-700 hover:text-black"
+              >
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/3726/3726291.png"
+                  class="fas fa-star mr-2"
+                />
+                Se Déconnecter
+              </router-link>
+            </li>
+          </div>
         </ul>
       </nav>
     </div>
@@ -90,6 +109,7 @@ export default {
 </script>
 
 <style scoped>
+/* Vos styles pour SideMenu.vue */
 img {
   height: 30px;
 }
