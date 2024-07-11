@@ -1,17 +1,18 @@
-<template>
+`<template>
   <div class="flex h-screen">
     <SideMenu class="w-1/4 h-full" />
     <div class="w-3/4 p-4 overflow-y-auto">
       <h1 class="text-6xl font-bold text-gray-800 mb-4">Mes Réservations</h1>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div
-          v-for="(reservation, index) in reservations"
-          :key="index"
+          v-for="(reservation) in reservations"
+          :key="reservation._id"
           class="border p-4 rounded-md bg-white shadow-md"
         >
-          <h2 class="text-xl font-semibold text-black mb-2">{{ reservation.title }}</h2>
-          <p class="text-black mb-2">{{ reservation.description }}</p>
-          <p class="text-black"><strong>Date:</strong> {{ reservation.date }}</p>
+          <h2 class="text-xl font-semibold text-black mb-2">{{ reservation.session_id }}</h2>
+          <p class="text-black mb-2">{{ reservation.status }}</p>
+          <p class="text-black"><strong>Début:</strong> {{ reservation.start_datetime }}</p>
+          <p class="text-black"><strong>Fin:</strong> {{ reservation.end_datetime }}</p>
           <p class="text-black"><strong>Location:</strong> {{ reservation.location }}</p>
         </div>
       </div>
@@ -20,6 +21,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import SideMenu from "@/components/SideMenu.vue";
 
 export default {
@@ -29,33 +31,35 @@ export default {
   },
   data() {
     return {
-      reservations: [
-        {
-          title: 'Reservation 1',
-          description: 'Description for reservation 1',
-          date: '2024-07-12',
-          location: 'Location 1'
-        },
-        {
-          title: 'Reservation 2',
-          description: 'Description for reservation 2',
-          date: '2024-07-13',
-          location: 'Location 2'
-        },
-        {
-          title: 'Reservation 3',
-          description: 'Description for reservation 3',
-          date: '2024-07-14',
-          location: 'Location 3'
-        },
-        // Ajoutez autant de fausses réservations que nécessaire
-      ]
+      reservations: []
     };
+  },
+  async mounted() {
+    await this.fetchReservations();
+  },
+  methods: {
+    async fetchReservations() {
+      try {
+        const token = localStorage.getItem('userToken');
+        const response = await axios.get('http://localhost:8081/api/myAppointments', {
+          headers: {
+            'x-access-token': token
+          }
+        });
+        console.log(response);
+        console.log(response.data); // Vérifiez la structure des données reçues
+        
+        this.reservations = response.data.data; // Assurez-vous que votre API retourne les données correctement
+      } catch (error) {
+        console.error('Error fetching reservations:', error);
+        // Gestion de l'erreur
+      }
+    }
   }
 };
 </script>
 
-<style scoped>
+`<style scoped>
 .main-title {
   margin-top: 2rem;
   margin-bottom: 2rem;

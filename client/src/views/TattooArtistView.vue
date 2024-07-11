@@ -2,19 +2,23 @@
   <div class="flex h-screen">
     <SideMenu class="w-1/4 h-full" />
     <div class="w-3/4 p-4 overflow-y-auto">
-      <h1>Liste des Tatouages</h1>
-      <ul>
-        <li v-for="tattoo in tattoos" :key="tattoo._id">
+      <h1 class="text-6xl font-bold text-gray-800 mb-4">Liste des Tatouages</h1>
+      <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div
+          v-for="tattoo in tattoos"
+          :key="tattoo._id"
+          class="border p-4 rounded-md bg-white shadow-md"
+        >
           <router-link :to="{ name: 'TattooDetailsPage', params: { id: tattoo._id.toString() }}">
-            <img :src="tattoo.image_url" :alt="tattoo.description" />
+            <img :src="tattoo.image_url" :alt="tattoo.description" class="mx-auto w-48 h-48 object-cover mb-2"/>
           </router-link>
-          <p>{{ tattoo.description }}</p>
-          <p>Artist: {{ tattoo.artist_id.username }}</p>
-          <p>Style: {{ tattoo.style_id.style_name }}</p>
-          <p>Price: {{ tattoo.price }}</p>
-        </li>
-      </ul>
-      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+          <p class="text-black"><strong>Description:</strong> {{ tattoo.description }}</p>
+          <p class="text-black"><strong>Artist:</strong> {{ tattoo.artist_id.username }}</p>
+          <p class="text-black"><strong>Style:</strong> {{ tattoo.style_id.style_name }}</p>
+          <p class="text-black"><strong>Price:</strong> {{ tattoo.price }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -70,11 +74,6 @@ ul {
 }
 li {
   margin: 10px 0;
-}
-img {
-  cursor: pointer;
-  width: 100px;
-  height: 100px;
 }
 .error-message {
   color: red;
