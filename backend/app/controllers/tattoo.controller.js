@@ -115,14 +115,15 @@ exports.getTattooById = async (req, res) => {
       return res.status(404).json({ message: "Tattoo not found" });
     }
 
-    // Récupérer les sessions associées
-    const sessions = await Session.find({ tattoo_id: tattoo._id });
+    // Récupérer les sessions associées avec le statut 'available'
+    const sessions = await Session.find({ tattoo_id: tattoo._id, status: 'available' });
 
     res.status(200).json({ tattoo, sessions });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 
 exports.createTattoo = async (req, res) => {
