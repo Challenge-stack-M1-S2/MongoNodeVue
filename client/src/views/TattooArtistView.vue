@@ -1,25 +1,32 @@
-`<template>
-  <div>
-    <h1>Liste des Tatouages</h1>
-    <ul>
-      <li v-for="tattoo in tattoos" :key="tattoo._id">
-        <router-link :to="{ name: 'TattooDetailsPage', params: { id: tattoo._id.toString() }}">
-          <img :src="tattoo.image_url" :alt="tattoo.description" />
-        </router-link>
-        <p>{{ tattoo.description }}</p>
-        <p>Artist: {{ tattoo.artist_id.username }}</p>
-        <p>Style: {{ tattoo.style_id.style_name }}</p>
-        <p>Price: {{ tattoo.price }}</p>
-      </li>
-    </ul>
-    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+<template>
+  <div class="flex h-screen">
+    <SideMenu class="w-1/4 h-full" />
+    <div class="w-3/4 p-4 overflow-y-auto">
+      <h1>Liste des Tatouages</h1>
+      <ul>
+        <li v-for="tattoo in tattoos" :key="tattoo._id">
+          <router-link :to="{ name: 'TattooDetailsPage', params: { id: tattoo._id.toString() }}">
+            <img :src="tattoo.image_url" :alt="tattoo.description" />
+          </router-link>
+          <p>{{ tattoo.description }}</p>
+          <p>Artist: {{ tattoo.artist_id.username }}</p>
+          <p>Style: {{ tattoo.style_id.style_name }}</p>
+          <p>Price: {{ tattoo.price }}</p>
+        </li>
+      </ul>
+      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import SideMenu from '@/components/SideMenu.vue';
 
 export default {
+  components: {
+    SideMenu
+  },
   data() {
     return {
       tattoos: [],
