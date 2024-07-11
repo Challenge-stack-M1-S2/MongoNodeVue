@@ -45,7 +45,8 @@ require("./app/routes/user.routes")(app);
 
 require("./app/routes/tattoo.routes")(app);
 require("./app/routes/session.routes")(app);
-require("./app/routes/appointment.routes")(app); 
+require("./app/routes/appointment.routes")(app);
+require("./app/routes/style.routes")(app); 
 
 
 // set port, listen for requests
