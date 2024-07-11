@@ -58,7 +58,8 @@ export default {
 
         // Rediriger selon le statut d'admin
         if (response.data.message === "User is an admin!") {
-          this.$router.push('/my-sessions');
+          localStorage.setItem("admin", "true")
+          this.$router.push('/tattoo-artist');
         } else {
           this.$router.push('/my-bookings');
         }
