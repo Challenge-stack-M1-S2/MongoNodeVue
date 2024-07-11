@@ -26,19 +26,19 @@
           </div>
           <div>
             <hr class="my-8 bg-black border-0" style="height: 1px" />
-            <li class="mb-4">
+            <li v-if="!isUserTokenAbsent" class="mb-4">
               <router-link
-                to="/avis"
+                to="/seances"
                 class="flex items-center text-gray-700 hover:text-black"
               >
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/5764/5764103.png"
                   class="fas fa-star mr-2"
                 />
-                Mes Avis
+                Mes Séances
               </router-link>
             </li>
-            <li class="mb-4">
+            <li v-if="!isUserTokenAbsent" class="mb-4">
               <router-link
                 to="/my-bookings"
                 class="flex items-center text-gray-700 hover:text-black"
@@ -62,7 +62,11 @@
                 Mes tattoos
               </router-link>
             </li>
-            <li class="mb-4">
+
+            <hr class="my-8 bg-black border-0" style="height: 1px" />
+          </div>
+          <div>
+            <li v-if="isUserTokenAbsent" class="mb-4">
               <router-link
                 to="/login-form"
                 class="flex items-center text-gray-700 hover:text-black"
@@ -74,12 +78,10 @@
                 Login
               </router-link>
             </li>
-            <hr class="my-8 bg-black border-0" style="height: 1px" />
-          </div>
-          <div>
-            <li class="mb-4">
+            <li v-else class="mb-4">
               <router-link
-                to="/logout"
+                to="/"
+                @click="logout"
                 class="flex items-center text-gray-700 hover:text-black"
               >
                 <img
@@ -99,6 +101,17 @@
 <script>
 export default {
   name: "SideMenu",
+  computed: {
+    isUserTokenAbsent() {
+      return !localStorage.getItem("userToken");
+    },
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("userToken");
+      this.$router.push("/"); // Redirect to login after logout
+    },
+  },
 };
 </script>
 
