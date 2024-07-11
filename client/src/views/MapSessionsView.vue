@@ -1,8 +1,6 @@
 <!-- MapSessionsView.vue -->
 <template>
-    <div class="map-sessions-view flex">
-      <SideMenu class="side-menu" />
-      <div class="content w-5/6">
+      <div>
         <h1 class="page-title text-black">Tous mes Sessions</h1>
         <div class="search-bar">
           <input type="text" v-model="searchQuery" placeholder="Rechercher une session..." />
@@ -10,18 +8,15 @@
         </div>
         <MapBox :searchQuery="searchQuery" />
       </div>
-    </div>
   </template>
   
   <script>
   import MapBox from '../components/MapBox.vue';
   import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
-  import SideMenu from "@/components/SideMenu.vue";
   
   export default {
     components: {
       MapBox,
-      SideMenu
     },
     data() {
       return {

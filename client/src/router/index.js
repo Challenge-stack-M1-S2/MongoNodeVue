@@ -7,6 +7,7 @@ import NotFoundView from "@/views/NotFoundView.vue";
 import LoginFormView from "@/views/LoginForm.vue";
 import MapBoxView from "@/views/MapSessionsView.vue";
 import TattooDetailsView from "@/views/TattooDetailsView.vue";
+import MesSessionsView from "@/views/MesSessionsView.vue";
 
 const routes = [
   {
@@ -49,6 +50,11 @@ const routes = [
     path: "/map-box",
     name: "MapBox",
     component: MapBoxView,
+  },
+  {
+    path: "/mes-sessions",
+    name: "MesSessions",
+    component: MesSessionsView,
   },
 ];
 

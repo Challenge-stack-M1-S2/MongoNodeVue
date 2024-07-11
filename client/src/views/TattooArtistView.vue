@@ -1,6 +1,4 @@
 <template>
-  <div class="flex h-screen">
-    <SideMenu class="w-1/4 h-full" />
     <div class="w-3/4 p-4 overflow-y-auto">
       <h1>Liste des Tatouages</h1>
       <ul>
@@ -16,17 +14,12 @@
       </ul>
       <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
     </div>
-  </div>
 </template>
 
 <script>
 import axios from 'axios';
-import SideMenu from '@/components/SideMenu.vue';
 
 export default {
-  components: {
-    SideMenu
-  },
   data() {
     return {
       tattoos: [],

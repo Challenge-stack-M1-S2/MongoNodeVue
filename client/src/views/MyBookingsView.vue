@@ -1,6 +1,4 @@
 <template>
-  <div class="flex h-screen">
-    <SideMenu class="w-1/4 h-full" />
     <div class="w-3/4 p-4 overflow-y-auto">
       <h1 class="text-6xl font-bold text-gray-800 mb-4">Mes Réservations</h1>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -16,17 +14,12 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
-import SideMenu from "@/components/SideMenu.vue";
 
 export default {
   name: 'MyReservations',
-  components: {
-    SideMenu
-  },
   data() {
     return {
       reservations: [
