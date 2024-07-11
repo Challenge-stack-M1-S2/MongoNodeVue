@@ -21,6 +21,7 @@
               <router-link
                 to="/"
                 class="flex items-center text-gray-700 hover:text-black"
+                exact-active-class="router-link-exact-active"
               >
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/3388/3388840.png"
@@ -36,6 +37,7 @@
               <router-link
                 to="/avis"
                 class="flex items-center text-gray-700 hover:text-black"
+                exact-active-class="router-link-exact-active"
               >
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/5764/5764103.png"
@@ -48,6 +50,7 @@
               <router-link
                 to="/my-bookings"
                 class="flex items-center text-gray-700 hover:text-black"
+                exact-active-class="router-link-exact-active"
               >
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/16702/16702410.png"
@@ -60,6 +63,7 @@
               <router-link
                 to="/tattoo-artist"
                 class="flex items-center text-gray-700 hover:text-black"
+                exact-active-class="router-link-exact-active"
               >
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/4481/4481871.png"
@@ -72,6 +76,7 @@
               <router-link
                 to="/login-form"
                 class="flex items-center text-gray-700 hover:text-black"
+                exact-active-class="router-link-exact-active"
               >
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/12765/12765311.png"
@@ -109,8 +114,11 @@ export default {
 </script>
 
 <style scoped>
-/* Vos styles pour SideMenu.vue */
 img {
   height: 30px;
 }
+nav .router-link-exact-active {
+  background-color: #f0f0f0;
+}
+
 </style>
