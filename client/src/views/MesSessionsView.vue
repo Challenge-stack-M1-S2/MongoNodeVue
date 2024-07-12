@@ -57,11 +57,12 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import Modal2 from '../components/SessionPopUps/DeleteSession.vue';
 import Modal from '../components/SessionPopUps/NewSessionPop.vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const sessions = ref([]);
 const isDeleteModalOpen = ref(false);
 const sessionToDelete = ref(null);
-
 const isAddSessionModalOpen = ref(false);
 
 const openAddSessionModal = () => {
@@ -130,9 +131,15 @@ const editSession = async (sessionId) => {
   }
 };
 
-onMounted(fetchSessions);
+onMounted(() => {
+  const token = localStorage.getItem('userToken');
+  if (!token) {
+    router.push('/');
+  } else {
+    fetchSessions();
+  }
+});
 </script>
-
 
 <script>
 import SideMenu from "@/components/SideMenu.vue";
@@ -190,3 +197,4 @@ export default {
   background-color: #ff3333;
 }
 </style>
+

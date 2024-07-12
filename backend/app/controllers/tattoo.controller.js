@@ -21,7 +21,24 @@ exports.getTattoos = async (req, res) => {
         }
       });
 
-    res.status(200).json(tattoos);
+    // Check for available sessions for each tattoo
+    const tattoosWithAvailability = await Promise.all(
+      tattoos.map(async (tattoo) => {
+        const availableSessions = await Session.find({
+          tattoo_id: tattoo._id,
+          status: 'available',
+          end_datetime: { $gte: new Date() } // Ensure the session end time is in the future
+        });
+        
+        // Add a boolean indicating if there are any available sessions
+        return {
+          ...tattoo.toObject(), // Convert Mongoose document to plain object
+          hasAvailableSessions: availableSessions.length > 0
+        };
+      })
+    );
+
+    res.status(200).json(tattoosWithAvailability);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
