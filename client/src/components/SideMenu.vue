@@ -5,7 +5,6 @@
       'background-image':
         'url(' + require('@/assets/sidemenu-banner2.png') + ')',
     }"
-    style="height: 911px"
   >
   <nav class="w-full h-screen flex flex-col">
     <!-- Logo Section -->
