@@ -14,94 +14,94 @@ export default {
   },
   methods: {
     async initializeMap() {
-  try {
-    const map = new mapboxgl.Map({
-      container: this.$refs.mapContainer,
-      style: "mapbox://styles/mapbox/streets-v12",
-      center: [4.84468, 45.74848],
-      zoom: 10,
-    });
-    this.map = map;
+      try {
+        const map = new mapboxgl.Map({
+          container: this.$refs.mapContainer,
+          style: "mapbox://styles/mapbox/streets-v12",
+          center: [4.84468, 45.74848],
+          zoom: 10,
+        });
+        this.map = map;
 
-    // Enable clustering
-    map.on("load", async () => {
-      map.addSource("sessions", {
-        type: "geojson",
-        data: {
-          type: "FeatureCollection",
-          features: [],
-        },
-        cluster: true, // Enable clustering
-        clusterMaxZoom: 14, // Max zoom to cluster points on
-        clusterRadius: 50, // Radius of each cluster when clustering points (in pixels)
-      });
+        // Enable clustering
+        map.on("load", async () => {
+          map.addSource("sessions", {
+            type: "geojson",
+            data: {
+              type: "FeatureCollection",
+              features: [],
+            },
+            cluster: true,
+            clusterMaxZoom: 14,
+            clusterRadius: 50,
+          });
 
-      const sessions = await this.getSessionsFromAPI();
-      map.getSource("sessions").setData(sessions);
+          const sessions = await this.getSessionsFromAPI();
+          map.getSource("sessions").setData(sessions);
 
-      // Add cluster points layer
-      map.addLayer({
-        id: "clusters",
-        type: "circle",
-        source: "sessions",
-        filter: ["has", "point_count"],
-        paint: {
-          "circle-color": [
-            "step",
-            ["get", "point_count"],
-            "#51bbd6",
-            100,
-            "#f1f075",
-            750,
-            "#f28cb1",
-          ],
-          "circle-radius": [
-            "step",
-            ["get", "point_count"],
-            20,
-            100,
-            30,
-            750,
-            40,
-          ],
-        },
-      });
+          // Add cluster points layer
+          map.addLayer({
+            id: "clusters",
+            type: "circle",
+            source: "sessions",
+            filter: ["has", "point_count"],
+            paint: {
+              "circle-color": [
+                "step",
+                ["get", "point_count"],
+                "#51bbd6",
+                100,
+                "#f1f075",
+                750,
+                "#f28cb1",
+              ],
+              "circle-radius": [
+                "step",
+                ["get", "point_count"],
+                20,
+                100,
+                30,
+                750,
+                40,
+              ],
+            },
+          });
 
-      // Add cluster symbol
-      map.addLayer({
-        id: "cluster-count",
-        type: "symbol",
-        source: "sessions",
-        filter: ["has", "point_count"],
-        layout: {
-          "text-field": "{point_count_abbreviated}",
-          "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
-          "text-size": 12,
-        },
-      });
+          // Add cluster symbol
+          map.addLayer({
+            id: "cluster-count",
+            type: "symbol",
+            source: "sessions",
+            filter: ["has", "point_count"],
+            layout: {
+              "text-field": "{point_count_abbreviated}",
+              "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+              "text-size": 12,
+            },
+          });
 
-      // Add unclustered symbol
-      map.addLayer({
-        id: "unclustered-point",
-        type: "symbol",
-        source: "sessions",
-        filter: ["!", ["has", "point_count"]],
-        layout: {
-          "icon-image": "custom-icon",
-          "icon-size": 0.1,
-          "text-field": "{sessionId}",
-          "text-offset": [0, 1],
-          "text-anchor": "top",
-        },
-      });
+          // Add unclustered points
+          map.addLayer({
+            id: "unclustered-point",
+            type: "symbol",
+            source: "sessions",
+            filter: ["!", ["has", "point_count"]],
+            layout: {
+              "icon-image": "custom-icon",
+              "icon-size": 0.1,
+              "text-field": "{sessionId}",
+              "text-offset": [0, 1],
+              "text-anchor": "top",
+            },
+          });
 
-      this.addCustomIconToMap(map);
-    });
-
-  } catch (error) {
-    console.error("Error initializing map:", error);
-  }
-},
+          this.addCustomIconToMap(map);
+          this.addPopupsToMap(map);
+        });
+      } catch (error) {
+        console.error("Error initializing map:", error);
+      }
+    },
 
     async getSessionsFromAPI() {
       try {
@@ -122,8 +122,11 @@ export default {
             ],
           },
           properties: {
+            location: session.location.formattedAddress,
             sessionId: session.sessionId,
-            icon: "custom-icon",
+            tattooId: session.tattoo_id._id, // Assuming the tattoo_id is nested inside the session object
+            price: session.tattoo_id.price,
+            imageUrl: session.tattoo_id.image_url,
           },
         }));
 
@@ -135,6 +138,7 @@ export default {
         throw new Error(`Error fetching sessions: ${error.message}`);
       }
     },
+
     addCustomIconToMap(map) {
       const imageUrl =
         "https://static.vecteezy.com/system/resources/thumbnails/038/280/757/small_2x/3d-blue-map-pointer-location-map-icon-blue-texture-blue-location-pin-or-navigation-web-location-point-pointer-grey-pointer-icon-location-symbol-gps-travel-navigation-place-position-png.png";
@@ -144,21 +148,44 @@ export default {
         map.addImage("custom-icon", image);
       });
     },
-    addLayerToMap(map, sessions) {
-      map.addLayer({
-        id: "points",
-        type: "symbol",
-        source: {
-          type: "geojson",
-          data: sessions,
-        },
-        layout: {
-          "icon-image": "custom-icon",
-          "icon-size": 0.1, // Adjust icon size as needed
-          "text-field": "{sessionId}",
-          "text-offset": [0, 1],
-          "text-anchor": "top",
-        },
+
+    addPopupsToMap(map) {
+      const popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false,
+      });
+
+      map.on("mouseenter", "unclustered-point", (e) => {
+        map.getCanvas().style.cursor = "pointer";
+
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const tattooId = e.features[0].properties.tattooId;
+        const location = e.features[0].properties.location;
+        const price = e.features[0].properties.price;
+        const imageUrl = e.features[0].properties.imageUrl;
+
+        const popupContent = `<div class="popup-content">
+                                <div class="popup-image" style="background-image: url(${imageUrl});"></div>
+                                <div class="popup-details">
+                                  <p>${location}</p>
+                                  <p>Prix : ${price} €</p>
+                                  <a href="/tattoo-details/${tattooId}">Voir détails</a>
+                                </div>
+                              </div>`;
+
+        popup.setLngLat(coordinates).setHTML(popupContent).addTo(map);
+
+        // Délai avant de fermer la popup
+        const popupElement = popup.getElement();
+        popupElement.addEventListener("mouseleave", () => {
+          setTimeout(() => {
+            popup.remove();
+          }, 300); // Délai de 300 ms avant de fermer la popup
+        });
+      });
+
+      map.on("mouseleave", "unclustered-point", () => {
+        map.getCanvas().style.cursor = "";
       });
     },
   },
@@ -174,7 +201,41 @@ export default {
 <style>
 .map-container {
   width: 90%;
-  height: 400px; /* Adjust height as needed */
+  height: 400px;
   margin-bottom: 200px;
+}
+
+.popup-content {
+  display: flex;
+  max-width: 300px; /* ajustez la largeur maximale selon vos besoins */
+  overflow: hidden; /* pour s'assurer que le contenu ne dépasse pas */
+}
+
+.popup-image {
+  width: 100px; /* largeur de l'image */
+  height: 100px; /* hauteur de l'image */
+  background-size: cover; /* ajuste l'image à la taille du conteneur */
+  background-position: center; /* centre l'image dans le conteneur */
+  margin-right: 10px; /* marge à droite pour l'espace */
+}
+
+.popup-details {
+  flex-grow: 1; /* fait en sorte que le contenu occupe l'espace restant */
+}
+
+.popup-details p {
+  margin: 0; /* supprime les marges par défaut */
+}
+
+.popup-details a {
+  display: block; /* rend le lien en bloc pour l'espacement */
+  margin-top: 10px; /* espace au-dessus du lien */
+  text-decoration: none; /* supprime la décoration du lien */
+  color: blue; /* couleur du lien */
+}
+
+.popup-details a:hover {
+  text-decoration: underline; /* souligne le lien au survol */
+  cursor: pointer; /* curseur pointer au survol */
 }
 </style>
