@@ -8,6 +8,7 @@ import LoginFormView from "@/views/LoginForm.vue";
 import MapBoxView from "@/views/MapSessionsView.vue";
 import TattooDetailsView from "@/views/TattooDetailsView.vue";
 import MesSessionsView from "@/views/MesSessionsView.vue";
+import AllTattoosFiltered from "@/views/AllTattoosFilteredView.vue";
 
 const routes = [
   {
@@ -55,6 +56,11 @@ const routes = [
     path: "/mes-sessions",
     name: "MesSessions",
     component: MesSessionsView,
+  },
+  {
+    path: "/mes-tattoos-filtered",
+    name: "AllTattoosFiltered",
+    component: AllTattoosFiltered,
   },
 ];
 
