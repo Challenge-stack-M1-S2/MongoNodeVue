@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import logo from "@/assets/LogoBlackWhite.png";
+import logo from "@/assets/LogoBlack.png";
 
 export default {
   name: "SideMenu",
