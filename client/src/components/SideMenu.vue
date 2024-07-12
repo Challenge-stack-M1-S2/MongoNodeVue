@@ -11,7 +11,7 @@
     <!-- Logo Section -->
     <div class="flex justify-center">
       <img
-        src="../assets/LogoBlack.png"
+        src="../assets/LogoBlackWhite.png"
         alt="Inked Legends Logo"
         class="h-75"
       />
