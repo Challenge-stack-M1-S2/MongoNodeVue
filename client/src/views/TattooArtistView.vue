@@ -35,7 +35,6 @@
       <!-- Modal pour ajouter un tatouage -->
       <NewTattoo :isOpen="isModalOpen" @close="closeModal" @submit="addTattoo" :styles="styles"></NewTattoo>
     </div>
-    <SiteFooter/>
   </div>
 </template>
 
@@ -44,14 +43,12 @@ import axios from 'axios';
 import SideMenu from '@/components/SideMenu.vue';
 import NewTattoo from '../components/NewTattoo.vue';
 import EditTattoo from '../components/EditTattoo.vue';
-import SiteFooter from '@/components/SiteFooter.vue';
 
 export default {
   components: {
     SideMenu,
     NewTattoo,
     EditTattoo,
-    SiteFooter
   },
   data() {
     return {
