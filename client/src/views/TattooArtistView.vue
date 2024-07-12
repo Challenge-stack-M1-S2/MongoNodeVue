@@ -3,7 +3,6 @@
     <SideMenu class="w-1/4 h-full" />
     <div class="w-3/4 p-4 overflow-y-auto">
       <h1 class="h1">Liste des Tatouages</h1>
-      <!-- Bouton Ajouter Tatouage -->
       <button @click="openModal" class="button-primary mb-4">
         Ajouter un tatouage
       </button>
@@ -17,12 +16,10 @@
           <p class="text-black"><strong>Artiste:</strong> {{ tattoo.artist_id.username }}</p>
           <p class="text-black"><strong>Style:</strong> {{ tattoo.style_id.style_name }}</p>
           <p class="text-black"><strong>Prix:</strong> {{ tattoo.price }}</p>
-          <!-- Boutons de gestion -->
           <div class="mt-4 flex">
             <button @click="openEditModal(tattoo)" class="button-edit">
               Modifier
             </button>
-            <!-- Bouton Supprimer Tatouage -->
             <button @click="deleteTattoo(tattoo._id)" class="button-delete">
               Supprimer
             </button>
@@ -32,7 +29,6 @@
 
       <EditTattoo :isOpen="isEditModalOpen" @close="closeEditModal" @submit="handleEditSubmit" :tattoo="selectedTattoo" :styles="styles"></EditTattoo>
 
-      <!-- Modal pour ajouter un tatouage -->
       <NewTattoo :isOpen="isModalOpen" @close="closeModal" @submit="addTattoo" :styles="styles"></NewTattoo>
     </div>
   </div>
@@ -147,7 +143,6 @@ export default {
 </script>
 
 <style scoped>
-/* Styles spécifiques pour les boutons */
 .button-primary {
   background-color: #000000;
   color: #ffffff;

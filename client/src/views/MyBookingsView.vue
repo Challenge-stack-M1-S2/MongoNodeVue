@@ -75,7 +75,6 @@
               <strong>Location:</strong> Information de localisation manquante
             </p>
 
-            <!-- Boutons de modification et suppression -->
             <div
               v-if="reservation.status === 'reserved'"
               class="action-buttons"
@@ -94,7 +93,7 @@
               </button>
             </div>
           </div>
-          <!-- Image centrée horizontalement et verticalement -->
+          
           <img
             v-if="reservation.status === 'finished'"
             src="https://cdn-icons-png.flaticon.com/512/4303/4303945.png"

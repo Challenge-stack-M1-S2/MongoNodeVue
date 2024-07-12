@@ -66,7 +66,7 @@ export default {
       } catch (error) {
         console.error('Error checking admin status:', error);
 
-        // Rediriger vers /my-bookings en cas d'erreur ou si l'utilisateur n'est pas admin
+        // Redirige vers /my-bookings en cas d'erreur ou si l'utilisateur n'est pas admin
         this.$router.push('/my-bookings');
       }
     }

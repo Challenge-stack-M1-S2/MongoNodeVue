@@ -66,18 +66,17 @@
     watch: {
       tattoo: {
         handler(newVal) {
-          // Update edited data when 'tattoo' prop changes
           if (newVal) {
             this.editedTattoo = {
               _id: newVal._id,
               image_url: newVal.image_url,
               description: newVal.description,
               price: newVal.price,
-              style_id: newVal.style_id ? newVal.style_id._id : '' // Ensure style_id is not null
+              style_id: newVal.style_id ? newVal.style_id._id : ''
             };
           }
         },
-        immediate: true // Call immediately on component mount
+        immediate: true
       }
     },
     methods: {
@@ -94,7 +93,7 @@
           });
           console.log(response);
           this.close();
-          this.$emit('submit'); // Emit event to inform parent component about the update
+          this.$emit('submit');
         } catch (error) {
           console.error('Error updating tattoo:', error);
         }
@@ -102,8 +101,3 @@
     }
   };
   </script>
-  
-  <style scoped>
-  /* Scoped styles for the modal */
-  </style>
-  

@@ -69,12 +69,12 @@
         artistQuery: '',
         styleQuery: '',
         locationQuery: '',
-        test: '', // Define 'test' or remove its usage if not needed
-        cards: [], // To store the fetched card data
+        test: '',
+        cards: [],
       };
     },
     async mounted() {
-      await this.searchTattoos(); // Fetch initial data on page load
+      await this.searchTattoos();
     },
     methods: {
       async searchTattoos() {
@@ -99,7 +99,7 @@
   <style scoped>
   .cards-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust card width as needed */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 16px;
   }
   
@@ -121,14 +121,14 @@
   }
   
   .card-title {
-    font-size: 1.2em; /* Adjust card title font size */
+    font-size: 1.2em;
     margin-bottom: 8px;
   }
   
   .card-location,
   .card-artist {
     margin-bottom: 8px;
-    font-size: 0.9em; /* Adjust location and artist font size */
+    font-size: 0.9em;
   }
   
   .card-tags {
@@ -141,7 +141,7 @@
     border-radius: 4px;
     padding: 4px 8px;
     margin: 2px;
-    font-size: 0.8em; /* Adjust tag font size */
+    font-size: 0.8em;
   }
   </style>
   

@@ -4,24 +4,18 @@
     <div class="p-4 w-3/4">
       <h1 class="h1">Mes Séances</h1>
       
-      <!-- Bouton Ajouter Session -->
       <button @click="openAddSessionModal" class="button-primary mb-4">
         Ajouter une session
       </button>
 
-      <!-- Modal pour confirmer la suppression -->
       <Modal2 :isOpen="isDeleteModalOpen" :sessionId="sessionToDelete" @close="closeDeleteModal" @delete-confirmed="handleDeleteConfirmed"></Modal2>
       
-      <!-- Modal pour ajouter une session -->
       <Modal :isOpen="isAddSessionModalOpen" @close="closeAddSessionModal" @submit="addSession"></Modal>
       
-      <!-- Modal pour modifier une session -->
       <ModifSession v-if="showModal" :isOpen="showModal" :session="selectedSession" @update="updateSession" @close="closeModal"></ModifSession>
 
-      <!-- Liste des Sessions -->
       <ul>
         <li v-for="session in sessions" :key="session._id" class="mb-4 p-4 border rounded flex justify-between">
-          <!-- Div pour les détails et les boutons -->
           <div class="w-2/3 pl-4 flex flex-col justify-between">
             <div>
               <h2 class="text-lg font-semibold">{{ session.tattoo_id.description }}</h2>
@@ -35,7 +29,6 @@
               </div>
             </div>
             
-            <!-- Boutons de gestion -->
             <div class="mt-4 flex">
               <button @click="editSession(session)" class="button-edit">
                 Modifier
@@ -45,7 +38,6 @@
               </button>
             </div>
           </div>
-          <!-- Div pour l'image -->
           <div class="w-1/6 flex items-center justify-end">
             <img :src="session.tattoo_id.image_url" alt="Tattoo Image" class="h-full object-cover rounded">
           </div>
@@ -96,7 +88,6 @@ const editSession = (session) => {
 
 const updateSession = async (updatedSession) => {
   try {
-    // Recharger la liste des sessions après la modification
     await fetchSessions();
   } catch (error) {
     console.error('Error updating session:', error);
@@ -152,7 +143,6 @@ export default {
 </script>
 
 <style scoped>
-/* Styles spécifiques pour les boutons */
 .button-primary {
   background-color: #000000;
   color: #ffffff;

@@ -23,7 +23,6 @@ export default {
         });
         this.map = map;
 
-        // Enable clustering
         map.on("load", async () => {
           map.addSource("sessions", {
             type: "geojson",
@@ -39,7 +38,6 @@ export default {
           const sessions = await this.getSessionsFromAPI();
           map.getSource("sessions").setData(sessions);
 
-          // Add cluster points layer
           map.addLayer({
             id: "clusters",
             type: "circle",
@@ -67,7 +65,6 @@ export default {
             },
           });
 
-          // Add cluster symbol
           map.addLayer({
             id: "cluster-count",
             type: "symbol",
@@ -80,7 +77,6 @@ export default {
             },
           });
 
-          // Add unclustered points
           map.addLayer({
             id: "unclustered-point",
             type: "symbol",
@@ -111,7 +107,7 @@ export default {
         }
         const data = await response.json();
         console.log(data);
-        // Map data to GeoJSON features
+        
         const sessions = data.data.map((session) => ({
           type: "Feature",
           geometry: {
@@ -124,7 +120,7 @@ export default {
           properties: {
             location: session.location.formattedAddress,
             sessionId: session.sessionId,
-            tattooId: session.tattoo_id._id, // Assuming the tattoo_id is nested inside the session object
+            tattooId: session.tattoo_id._id,
             price: session.tattoo_id.price,
             imageUrl: session.tattoo_id.image_url,
           },
@@ -207,35 +203,35 @@ export default {
 
 .popup-content {
   display: flex;
-  max-width: 300px; /* ajustez la largeur maximale selon vos besoins */
-  overflow: hidden; /* pour s'assurer que le contenu ne dépasse pas */
+  max-width: 300px;
+  overflow: hidden;
 }
 
 .popup-image {
-  width: 100px; /* largeur de l'image */
-  height: 100px; /* hauteur de l'image */
-  background-size: cover; /* ajuste l'image à la taille du conteneur */
-  background-position: center; /* centre l'image dans le conteneur */
-  margin-right: 10px; /* marge à droite pour l'espace */
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  background-position: center;
+  margin-right: 10px;
 }
 
 .popup-details {
-  flex-grow: 1; /* fait en sorte que le contenu occupe l'espace restant */
+  flex-grow: 1;
 }
 
 .popup-details p {
-  margin: 0; /* supprime les marges par défaut */
+  margin: 0;
 }
 
 .popup-details a {
-  display: block; /* rend le lien en bloc pour l'espacement */
-  margin-top: 10px; /* espace au-dessus du lien */
-  text-decoration: none; /* supprime la décoration du lien */
-  color: blue; /* couleur du lien */
+  display: block;
+  margin-top: 10px;
+  text-decoration: none;
+  color: blue;
 }
 
 .popup-details a:hover {
-  text-decoration: underline; /* souligne le lien au survol */
-  cursor: pointer; /* curseur pointer au survol */
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>

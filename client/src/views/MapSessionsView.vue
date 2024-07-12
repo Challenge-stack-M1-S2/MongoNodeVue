@@ -1,4 +1,3 @@
-<!-- MapSessionsView.vue -->
 <template>
   <div class="map-sessions-view flex">
     <SideMenu class="side-menu" />
@@ -34,7 +33,6 @@ export default {
   },
   methods: {
     searchSessions() {
-      // Logique de recherche si nécessaire
       console.log("Rechercher:", this.searchQuery);
     },
   },

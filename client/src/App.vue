@@ -44,15 +44,15 @@ font-size:20px;
 
 .nav-link {
   margin: 0 15px;
-  color: #ffffff; /* Default link color */
+  color: #ffffff;
   text-decoration: none;
   font-weight: bold;
-  font-size: 16px; /* Adjust font size as needed */
+  font-size: 16px;
   transition: color 0.3s ease;
 }
 
 .nav-link:hover {
-  color: #42b983; /* Hover color */
+  color: #42b983;
 }
 
 .bg-transparent {
@@ -60,6 +60,6 @@ font-size:20px;
 }
 
 .bg-black {
-  background-color: #000000 !important; /* Black background color when scrolled */
+  background-color: #000000 !important;
 }
 </style>

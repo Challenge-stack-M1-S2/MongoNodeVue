@@ -70,7 +70,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-/* Styles pour le modal */
-</style>

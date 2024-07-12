@@ -8,11 +8,11 @@
     style="height: 919px"
   >
     <nav class="w-full h-screen flex flex-col justify-center">
-      <!-- Logo Section -->
+      
       <div class="flex justify-center">
         <img :src="logo" alt="Inked Legends Logo" class="h-16" />
       </div>
-      <!-- Navigation Section -->
+     
       <ul class="flex flex-col justify-start">
         <li class="mt-4">
           <router-link
@@ -126,14 +126,14 @@ export default {
   },
   data() {
     return {
-      logo: logo, // Utilisation de l'importation du logo
+      logo: logo,
     };
   },
   methods: {
     logout() {
       localStorage.removeItem("userToken");
       localStorage.removeItem("admin");
-      window.location.reload(); // Force page reload
+      window.location.reload();
     },
   },
 };

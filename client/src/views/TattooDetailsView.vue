@@ -58,7 +58,6 @@
             {{ tattooDetails.description }}
           </p>
 
-          <!-- Ajoutez ici d'autres détails si nécessaire -->
           <div class="flex justify-center">
             <button
               v-if="availableSessions.length > 0"
@@ -87,7 +86,6 @@
       </div>
     </div>
 
-    <!-- Modal for booking -->
     <div
       v-if="showModal"
       class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50"
@@ -226,16 +224,16 @@ export default {
   display: flex;
 }
 .content {
-  margin-left: 220px; /* Adjust this value based on the width of your side menu */
+  margin-left: 220px;
   min-height: calc(
     100vh - 64px
-  ); /* Adjust 64px based on your header/footer height if any */
+  );
 }
 .icon {
   height: 35px;
 }
 .cursor-not-allowed {
   cursor: not-allowed;
-  opacity: 0.6; /* Opacity to visually indicate disabled state */
+  opacity: 0.6;
 }
 </style>

@@ -50,7 +50,7 @@
               placeholder="Lieu"
               class="text-gray-800 border p-2 rounded-md w-full"
             />
-            <!-- Suggestions de Localisations -->
+           
             <ul
               v-if="showLocationSuggestions && filters.location.length > 0"
               class="suggestions-list text-black"
@@ -65,7 +65,6 @@
               </li>
             </ul>
 
-            <!-- Localisations Sélectionnées -->
             <div class="flex flex-wrap mt-2">
               <span
                 v-for="(location, index) in filters.locations"
@@ -98,7 +97,7 @@
               placeholder="Tatoueur"
               class="text-gray-800 border p-2 rounded-md w-full"
             />
-            <!-- Artist Suggestions -->
+           
             <ul
               v-if="showArtistSuggestions && filters.artist"
               class="absolute w-full bg-white border text-black mt-1 z-10 text-lg"
@@ -112,7 +111,7 @@
                 {{ artist }}
               </li>
             </ul>
-            <!-- Selected Artists -->
+           
             <div class="flex flex-wrap mt-2">
               <span
                 v-for="(artist, index) in filters.artists"
@@ -264,7 +263,7 @@ const updateLocationSuggestions = () => {
           location &&
           location.toLowerCase().includes(query) &&
           !filters.value.locations.includes(location)
-        ); // Exclure les localisations déjà sélectionnées
+        );
       })
   );
   locationSuggestions.value = Array.from(uniqueSuggestions);
@@ -280,7 +279,7 @@ const updateArtistSuggestions = () => {
           artist &&
           artist.toLowerCase().includes(query) &&
           !filters.value.artists.includes(artist)
-        ); // Exclure les artistes déjà sélectionnés
+        );
       })
   );
   artistSuggestions.value = Array.from(uniqueSuggestions);
@@ -358,8 +357,8 @@ ul {
 
 li {
   cursor: pointer;
-  font-size: 1.2rem; /* Increased font size */
-  padding: 0.75rem; /* Increased padding */
+  font-size: 1.2rem;
+  padding: 0.75rem;
 }
 
 li:hover {
