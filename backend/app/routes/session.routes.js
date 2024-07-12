@@ -12,6 +12,7 @@ module.exports = function(app) {
    
    /*** Session ***/
    app.get("/api/sessions", controller.getSessions); 
+   app.put("/api/sessions/:id", controller.putSession);
 
    /*** User non connecté ***/
    app.get("/api/mySessions", [authJwt.verifyToken, authJwt.isAdmin], controller.getMySessions); 

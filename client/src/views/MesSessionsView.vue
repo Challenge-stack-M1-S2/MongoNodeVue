@@ -14,6 +14,9 @@
       
       <!-- Modal pour ajouter une session -->
       <Modal :isOpen="isAddSessionModalOpen" @close="closeAddSessionModal" @submit="addSession"></Modal>
+      
+      <!-- Modal pour modifier une session -->
+      <ModifSession v-if="showModal" :isOpen="showModal" :session="selectedSession" @update="updateSession" @close="closeModal"></ModifSession>
 
       <!-- Liste des Sessions -->
       <ul>
@@ -34,7 +37,7 @@
             
             <!-- Boutons de gestion -->
             <div class="mt-4 flex">
-              <button @click="editSession(session._id)" class="button-edit">
+              <button @click="editSession(session)" class="button-edit">
                 Modifier
               </button>
               <button @click="openDeleteModal(session._id)" class="button-delete">
@@ -57,12 +60,14 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import Modal2 from '../components/SessionPopUps/DeleteSession.vue';
 import Modal from '../components/SessionPopUps/NewSessionPop.vue';
+import ModifSession from '../components/SessionPopUps/ModifSession.vue';
 
 const sessions = ref([]);
 const isDeleteModalOpen = ref(false);
 const sessionToDelete = ref(null);
-
 const isAddSessionModalOpen = ref(false);
+const showModal = ref(false);
+const selectedSession = ref(null);
 
 const openAddSessionModal = () => {
   isAddSessionModalOpen.value = true;
@@ -82,29 +87,27 @@ const closeDeleteModal = () => {
   sessionToDelete.value = null;
 };
 
-const addSession = async (sessionData) => {
+const editSession = (session) => {
+  selectedSession.value = session;
+  showModal.value = true;
+  console.log("Session",session);
+};
+
+const updateSession = async (updatedSession) => {
   try {
-    closeAddSessionModal();
+    // Recharger la liste des sessions après la modification
     await fetchSessions();
   } catch (error) {
-    console.error('Error adding session:', error);
+    console.error('Error updating session:', error);
   }
+  closeModal();
 };
 
-const handleDeleteConfirmed = async () => {
-  try {
-    await fetchSessions();
-  } catch (error) {
-    console.error('Error fetching sessions:', error);
-  }
+const closeModal = () => {
+  showModal.value = false;
+  selectedSession.value = null;
 };
 
-const formatDate = (dateString) => {
-  const options = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false };
-  return new Date(dateString).toLocaleDateString('fr-FR', options);
-};
-
-// Fonction pour récupérer les sessions depuis l'API
 const fetchSessions = async () => {
   try {
     const token = localStorage.getItem('userToken');
@@ -119,20 +122,13 @@ const fetchSessions = async () => {
   }
 };
 
-// Fonction pour modifier une session
-const editSession = async (sessionId) => {
-  try {
-    await axios.put(`http://localhost:8081/api/sessions/${sessionId}`);
-    // Après la modification, recharger la liste des sessions
-    await fetchSessions();
-  } catch (error) {
-    console.error('Error editing session:', error);
-  }
+const formatDate = (dateString) => {
+  const options = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false };
+  return new Date(dateString).toLocaleDateString('fr-FR', options);
 };
 
 onMounted(fetchSessions);
 </script>
-
 
 <script>
 import SideMenu from "@/components/SideMenu.vue";
@@ -140,6 +136,9 @@ import SideMenu from "@/components/SideMenu.vue";
 export default {
   components: {
     SideMenu,
+    ModifSession,
+    Modal,
+    Modal2
   }
 };
 </script>
