@@ -21,6 +21,7 @@ module.exports = function(app) {
    app.get("/api/myAppointments", [authJwt.verifyToken], controller.getUserAppointments);
   //  app.get("/api/appointments/user/:userId", [authJwt.verifyToken], controller.getUserAppointments);
   
+  app.put("/api/appointments/:id/cancel", [authJwt.verifyToken], controller.cancelAppointment);
   }
 
   

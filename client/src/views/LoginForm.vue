@@ -1,16 +1,16 @@
 <template>
   <div class="login-container">
     <form @submit.prevent="handleLogin">
-      <h2>Login</h2>
+      <h2>Se connecter</h2>
       <div class="form-group">
-        <label for="username">Username:</label>
+        <label for="username">Nom d'utilisateur:</label>
         <input type="text" id="username" v-model="username" required />
       </div>
       <div class="form-group">
-        <label for="password">Password:</label>
+        <label for="password">Mot de passe:</label>
         <input type="password" id="password" v-model="password" required />
       </div>
-      <button type="submit">Login</button>
+      <button type="submit">Connexion</button>
       <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
     </form>
   </div>

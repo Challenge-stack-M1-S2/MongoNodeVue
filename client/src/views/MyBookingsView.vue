@@ -62,6 +62,25 @@
             >
               <strong>Location:</strong> Information de localisation manquante
             </p>
+
+            <!-- Boutons de modification et suppression -->
+            <div
+              v-if="reservation.status === 'reserved'"
+              class="action-buttons"
+            >
+              <button
+                @click="editReservation(reservation._id)"
+                class="btn-edit"
+              >
+                Modifier
+              </button>
+              <button
+                @click="deleteReservation(reservation._id)"
+                class="btn-delete"
+              >
+                Annuler
+              </button>
+            </div>
           </div>
           <!-- Image centrée horizontalement et verticalement -->
           <img
@@ -94,25 +113,21 @@ export default {
   data() {
     return {
       reservations: [],
-      // URLs des images pour chaque statut
-      reservationFinishedImage: "chemin/vers/image_finished.jpg",
-      reservationReservedImage: "chemin/vers/image_reserved.jpg",
     };
   },
   computed: {
     sortedReservations() {
-      // Tri des réservations: finished d'abord, puis reserved, puis le reste
       return this.reservations.slice().sort((a, b) => {
         if (a.status === "finished" && b.status !== "finished") {
-          return -1; // a avant b
+          return -1;
         } else if (a.status !== "finished" && b.status === "finished") {
-          return 1; // b avant a
+          return 1;
         } else if (a.status === "reserved" && b.status !== "reserved") {
-          return -1; // a avant b
+          return -1;
         } else if (a.status !== "reserved" && b.status === "reserved") {
-          return 1; // b avant a
+          return 1;
         } else {
-          return 0; // maintient l'ordre actuel
+          return 0;
         }
       });
     },
@@ -132,18 +147,55 @@ export default {
             },
           }
         );
-
         this.reservations = response.data.data;
-        console.log(this.reservations);
       } catch (error) {
         console.error("Error fetching reservations:", error);
-        // Gestion de l'erreur
       }
     },
     formatDateTime(datetime) {
       if (!datetime) return "";
       const date = new Date(datetime);
       return date.toLocaleDateString() + " à " + date.toLocaleTimeString();
+    },
+    async deleteReservation(id) {
+      try {
+        const token = localStorage.getItem("userToken");
+        await axios.put(`http://localhost:8081/api/appointments/${id}/cancel`, {
+          headers: {
+            "x-access-token": token,
+          },
+        });
+        await this.fetchReservations();
+      } catch (error) {
+        console.error("Error deleting reservation:", error);
+      }
+    },
+    async editReservation(id) {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get(
+          `http://localhost:8080/api/tattoos/${id}`,
+          {
+            headers: {
+              "x-access-token": token,
+            },
+          }
+        );
+        const sessions = response.data.sessions;
+        console.log(sessions);
+        //   await axios.patch(
+        //     `http://localhost:8081/api/myAppointments/${id}`,
+        //     { new_date },
+        //     {
+        //       headers: {
+        //         "x-access-token": token,
+        //       },
+        //     }
+        //   );
+        //   await this.fetchReservations();
+      } catch (error) {
+        console.error(`http://localhost:8081/api/tattoos/${id}`);
+      }
     },
   },
 };
@@ -175,50 +227,74 @@ export default {
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   background-color: #0b5ed7;
-  display: flex; /* Permet à l'image d'être centrée verticalement */
-  align-items: center; /* Centre l'image verticalement */
-  justify-content: center; /* Centre l'image horizontalement */
-  position: relative; /* Assure que l'image est positionnée correctement */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 .timeline-item:before {
   content: "";
   position: absolute;
   top: 0;
   left: 50%;
-  width: 2px;
+  width: 4px;
   height: 100%;
   background-color: #ccc;
   transform: translateX(-50%);
+}
+.timeline-item-reserved:before {
+  background-color: grey;
+}
+.timeline-item-completed:before {
+  background-color: green;
 }
 .timeline-item:last-child {
   margin-bottom: 0;
 }
 .timeline-item .timeline-content {
   padding-left: 20px;
-  flex: 1; /* Permet à la timeline-content de prendre tout l'espace restant */
+  flex: 1;
 }
 .timeline-image {
   max-width: 100%;
   height: 50px;
   display: block;
-  position: absolute; /* Positionne l'image au centre */
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1; /* Assure que l'image est au-dessus du contenu */
+  z-index: 1;
 }
 .timeline-item-reserved {
-  background-color: #ffedcc; /* Light orange */
+  background-color: #ffedcc;
 }
 .timeline-item-completed {
-  background-color: #0b5ed7; /* Light green */
+  background-color: #0b5ed7;
 }
-
 .reserved-text {
   color: #000;
 }
-
 .not-reserved-text {
   color: #fff;
+}
+.action-buttons {
+  margin-top: 10px;
+}
+.btn-edit,
+.btn-delete {
+  margin-right: 10px;
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-edit {
+  background-color: #4caf50;
+  color: white;
+}
+.btn-delete {
+  background-color: #f44336;
+  color: white;
 }
 </style>
