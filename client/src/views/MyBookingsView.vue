@@ -61,7 +61,7 @@
               }"
               v-if="reservation.session_id && reservation.session_id.location"
             >
-              <strong>Location:</strong>
+              <strong>Adresse :</strong>
               {{ reservation.session_id.location.formattedAddress }}
             </p>
             <p
@@ -72,7 +72,7 @@
               }"
               v-else
             >
-              <strong>Location:</strong> Information de localisation manquante
+              <strong>Adresse :</strong> Information de localisation manquante
             </p>
 
             <div
@@ -80,20 +80,14 @@
               class="action-buttons"
             >
               <button
-                @click="editReservation(reservation._id)"
-                class="btn-edit"
-              >
-                Modifier
-              </button>
-              <button
                 @click="deleteReservation(reservation._id)"
                 class="btn-delete"
               >
-                Supprimer
+                Annuler
               </button>
             </div>
           </div>
-          
+
           <img
             v-if="reservation.status === 'finished'"
             src="https://cdn-icons-png.flaticon.com/512/4303/4303945.png"
