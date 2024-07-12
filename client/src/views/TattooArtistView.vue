@@ -14,9 +14,9 @@
             <img :src="tattoo.image_url" :alt="tattoo.description" class="mx-auto w-48 h-48 object-cover mb-2"/>
           </router-link>
           <p class="text-black"><strong>Description:</strong> {{ tattoo.description }}</p>
-          <p class="text-black"><strong>Artist:</strong> {{ tattoo.artist_id.username }}</p>
+          <p class="text-black"><strong>Artiste:</strong> {{ tattoo.artist_id.username }}</p>
           <p class="text-black"><strong>Style:</strong> {{ tattoo.style_id.style_name }}</p>
-          <p class="text-black"><strong>Price:</strong> {{ tattoo.price }}</p>
+          <p class="text-black"><strong>Prix:</strong> {{ tattoo.price }}</p>
           <!-- Boutons de gestion -->
           <div class="mt-4 flex">
             <button @click="openEditModal(tattoo)" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 mr-2 rounded">
