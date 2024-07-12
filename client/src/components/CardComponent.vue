@@ -6,7 +6,7 @@
   >
     <img :src="imageSrc" alt="Card Image" class="w-full h-300px object-cover" />
     <span class="ml-2">{{ titre }}</span>
-    <div class="p-4 pl-0">
+    <div class="pl-0 pr-4 pt-4 pb-4">
       <div class="flex items-center mb-2">
         <img
           src="https://cdn-icons-png.flaticon.com/512/2901/2901609.png"
