@@ -9,7 +9,7 @@
         style="box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.6)"
       />
 
-      <h1 class="text-6xl font-bold text-gray-800 my-4">Réserver un flash</h1>
+      <h1 class="h1 pt-4">Réserver un flash</h1>
       <div class="block mb-4">
         <div class="flex">
           <input
@@ -20,15 +20,35 @@
           />
           <button class="border p-2 rounded-r-md bg-gray-200">🔍</button>
         </div>
-        <div class="flex mt-4 justify-between" style="width: 70%">
-          <div class="relative" style="width: 45%">
+        
+        <div class="flex flex-col mt-2" style="width: 30%">
+          <p class="font-bold text-gray-800 text-left py-2">Tags :</p>
+          <select
+            v-model="selectedTag"
+            @change="addTag"
+            class="border p-2 rounded-l-md w-full"
+          >
+            <option
+              v-for="tag in availableTags"
+              :key="tag"
+              :value="tag"
+              class="text-black"
+            >
+              {{ tag }}
+            </option>
+          </select>
+        </div>
+        <div class="flex  mt-4 justify-start " style="width: 100%">
+          
+
+          <div class="relative mr-4" style="width: 30%">
             <input
               type="text"
               v-model="filters.location"
               @focus="showLocationSuggestions = true"
               @input="updateLocationSuggestions"
-              placeholder="LIEU"
-              class="text-gray-800 border p-2 rounded-md bg-gray-200 w-full"
+              placeholder="Lieu"
+              class="text-gray-800 border p-2 rounded-md w-full"
             />
             <!-- Suggestions de Localisations -->
             <ul
@@ -69,14 +89,14 @@
             </div>
           </div>
 
-          <div class="relative" style="width: 45%">
+          <div class="relative" style="width:30%">
             <input
               type="text"
               v-model="filters.artist"
               @focus="showArtistSuggestions = true"
               @input="updateArtistSuggestions"
-              placeholder="TATOUEUR"
-              class="text-gray-800 border p-2 rounded-md bg-gray-200 w-full"
+              placeholder="Tatoueur"
+              class="text-gray-800 border p-2 rounded-md w-full"
             />
             <!-- Artist Suggestions -->
             <ul
@@ -116,23 +136,7 @@
             </div>
           </div>
         </div>
-        <p class="font-bold text-gray-800 text-left pt-1">Tags :</p>
-        <div class="flex mt-2">
-          <select
-            v-model="selectedTag"
-            @change="addTag"
-            class="border p-2 rounded-l-md w-full"
-          >
-            <option
-              v-for="tag in availableTags"
-              :key="tag"
-              :value="tag"
-              class="text-black"
-            >
-              {{ tag }}
-            </option>
-          </select>
-        </div>
+        
         <div class="mt-2 flex flex-wrap">
           <span
             v-for="(tag, index) in selectedTags"

@@ -28,7 +28,7 @@ exports.getMySessions = async (req, res) => {
         const tattooIds = tattoos.map(tattoo => tattoo._id);
 
         // Trouvez les sessions qui ont un tatouage associé à cet artiste et qui sont disponibles
-        const sessions = await Session.find({ tattoo_id: { $in: tattooIds }, status: 'available' }).populate('tattoo_id');
+        const sessions = await Session.find({ tattoo_id: { $in: tattooIds } }).populate('tattoo_id');
 
         return res.status(200).json({
             success: true,

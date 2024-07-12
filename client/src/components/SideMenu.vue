@@ -7,7 +7,7 @@
     }"
     style="height: 100vw"
   >
-  <nav class="w-full h-screen flex flex-col">
+  <nav class="w-full h-screen flex flex-col mt-36 jsutify-center">
     <!-- Logo Section -->
     <div class="flex justify-center">
       <img
