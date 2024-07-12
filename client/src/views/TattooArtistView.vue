@@ -36,7 +36,7 @@
       </div>
 
       <!-- Modal pour ajouter une session -->
-      <Modal :isOpen="isSessionModalOpen" @close="closeSessionModal" @submit="addSession"></Modal>
+      <Modal :isOpen="isSessionModalOpen" @close="closeSessionModal" @submit="handleAddSessionSubmit"></Modal>
 
       <EditTattoo :isOpen="isEditModalOpen" @close="closeEditModal" @submit="handleEditSubmit" :tattoo="selectedTattoo" :styles="styles"></EditTattoo>
 
@@ -117,8 +117,9 @@ export default {
     },
     async addTattoo(tattooData) {
       try {
+        console.log('test',tattooData.tattoo_id);
         const token = localStorage.getItem('userToken');
-        const response = await axios.post('http://localhost:8081/api/tattoos', tattooData, {
+        const response = await axios.post('http://localhost:8081/api/tattoos', tattooData.tattoo_id, {
           headers: {
             'x-access-token': token
           }
@@ -133,6 +134,8 @@ export default {
     openSessionModal(tattoo) {
       this.selectedTattoo = tattoo;
       this.isSessionModalOpen = true;
+      this.selectedTattoo._id;
+      console.log(tattoo);
     },
     closeSessionModal() {
       this.isSessionModalOpen = false;
@@ -165,6 +168,10 @@ export default {
     async handleEditSubmit() {
       this.isEditModalOpen = false; // Ferme la modal après la modification
       await this.fetchTattoos(); // Actualise la liste des tatouages après la modification
+    },
+    async handleAddSessionSubmit() {
+      this.isSessionModalOpen = false; // Ferme la modal après la modification
+      // await this.fetchTattoos(); Actualise la liste des tatouages après la modification
     },
     async deleteTattoo(tattooId) {
       try {

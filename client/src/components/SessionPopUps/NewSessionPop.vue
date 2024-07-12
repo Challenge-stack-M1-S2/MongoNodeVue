@@ -1,4 +1,3 @@
-Modal.vue
 <template>
   <div v-if="isOpen" class="fixed inset-0 flex items-center justify-center z-50">
     <div class="fixed inset-0 bg-black opacity-50 z-40"></div>
@@ -12,7 +11,7 @@ Modal.vue
           <label for="tattoo_id" class="block text-gray-700">Tattoo</label>
           <select v-model="tattoo_id" id="tattoo_id" class="w-full p-2 border rounded">
             <option v-for="tattoo in tattoos" :key="tattoo._id" :value="tattoo._id">
-              {{ tattoo.description }}
+              {{ tattoo.style_id.style_name }}
             </option>
           </select>
         </div>
@@ -63,7 +62,8 @@ export default {
       latitude: '',
       startDatetime: '',
       endDatetime: '',
-      status: 'available'
+      status: 'available',
+      errorMessage: ''
     };
   },
   methods: {
@@ -89,7 +89,7 @@ export default {
         this.errorMessage = error.response ? error.response.data.message : error.message;
       }
     },
-    submitForm() {
+    async submitForm() {
       const sessionData = {
         tattoo_id: this.tattoo_id,
         address: this.address,
@@ -103,8 +103,21 @@ export default {
         status: this.status
       };
       
-      this.$emit('submit', sessionData);
-      this.close();
+      try {
+        const token = localStorage.getItem('userToken');
+        const response = await axios.post('http://localhost:8081/api/sessions', sessionData, {
+          headers: {
+            'x-access-token': token
+          }
+        });
+        console.log(response);
+        this.close();
+        // Emit event to inform parent component about the update
+        this.$emit('submit', sessionData);
+      } catch (error) {
+        console.error('Error adding session:', error);
+        this.errorMessage = error.response ? error.response.data.message : error.message;
+      }
     }
   },
   mounted() {

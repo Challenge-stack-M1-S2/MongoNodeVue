@@ -5,7 +5,7 @@ const Tattoo = db.tattoo
 // GET ALL SESSIONS
 exports.getSessions = async (req, res) =>{
   try {
-      const sessions = await Session2.find().populate("tattoo_id");
+      const sessions = await Session.find().populate("tattoo_id");
       return res.status(200).json({
           success: true,
           count: sessions.length,

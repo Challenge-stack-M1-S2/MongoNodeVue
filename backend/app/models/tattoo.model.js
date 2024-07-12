@@ -7,7 +7,8 @@ module.exports = (mongoose) => {
       image_url: { type: String, required: true },
       description: { type: String, required: true },
       price: { type: Number, required: true },
-      created_at: { type: Date, default: Date.now }
+      created_at: { type: Date, default: Date.now },
+      _id: { type: String}
     })
   );
 
