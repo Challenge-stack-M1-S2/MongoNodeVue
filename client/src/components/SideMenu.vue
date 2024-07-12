@@ -97,7 +97,7 @@
               src="https://cdn-icons-png.flaticon.com/512/12765/12765311.png"
               class="fas fa-star mr-2"
             />
-            Login
+            Connection
           </router-link>
         </li>
         <li v-else class="mb-4">
