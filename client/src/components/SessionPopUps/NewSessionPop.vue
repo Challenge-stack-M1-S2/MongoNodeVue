@@ -27,13 +27,6 @@
           <label for="end_datetime" class="block text-gray-700">Date de fin</label>
           <input v-model="endDatetime" type="datetime-local" id="end_datetime" class="w-full p-2 border rounded">
         </div>
-        <div class="mb-4">
-          <label for="status" class="block text-gray-700">Statut</label>
-          <select v-model="status" id="status" class="w-full p-2 border rounded">
-            <option value="available">Disponible</option>
-            <option value="unavailable">Indisponible</option>
-          </select>
-        </div>
         <div class="flex justify-end">
           <button type="button" @click="close" class="mr-2 bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 rounded">Annuler</button>
           <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Ajouter</button>
@@ -100,7 +93,7 @@ export default {
         },
         start_datetime: new Date(this.startDatetime).toISOString(),
         end_datetime: new Date(this.endDatetime).toISOString(),
-        status: this.status
+        status: 'available'
       };
       
       try {

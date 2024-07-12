@@ -27,16 +27,8 @@
               Supprimer
             </button>
           </div>
-          <div class="mt-4 flex">
-            <button @click="openSessionModal(tattoo)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded">
-              Créer une séance
-            </button>
-          </div>
         </div>
       </div>
-
-      <!-- Modal pour ajouter une session -->
-      <Modal :isOpen="isSessionModalOpen" @close="closeSessionModal" @submit="handleAddSessionSubmit"></Modal>
 
       <EditTattoo :isOpen="isEditModalOpen" @close="closeEditModal" @submit="handleEditSubmit" :tattoo="selectedTattoo" :styles="styles"></EditTattoo>
 
@@ -50,15 +42,13 @@
 <script>
 import axios from 'axios';
 import SideMenu from '@/components/SideMenu.vue';
-import Modal from '../components/SessionPopUps/NewSessionPop.vue';
 import NewTattoo from '../components/NewTattoo.vue';
-import EditTattoo from '../components/EditTattoo.vue'; // Import du composant NewTattoo
+import EditTattoo from '../components/EditTattoo.vue';
 import SiteFooter from '@/components/SiteFooter.vue';
 
 export default {
   components: {
     SideMenu,
-    Modal,
     NewTattoo,
     EditTattoo,
     SiteFooter
@@ -68,14 +58,13 @@ export default {
       tattoos: [],
       errorMessage: '',
       isModalOpen: false,
-      isSessionModalOpen: false,
       isEditModalOpen: false,
       selectedTattoo: null,
-      styles: [] // Tableau pour stocker les styles de tatouage
+      styles: []
     }
   },
   async mounted() {
-    await this.fetchData(); // Appel à la méthode qui récupère les tatouages et les styles lors du montage du composant
+    await this.fetchData();
   },
   methods: {
     async fetchData() {
@@ -104,7 +93,7 @@ export default {
     async fetchStyles() {
       try {
         const response = await axios.get('http://localhost:8081/api/styles');
-        this.styles = response.data; // Stocke les styles récupérés dans le tableau styles
+        this.styles = response.data;
       } catch (error) {
         console.error('Error fetching styles:', error);
       }
@@ -117,9 +106,8 @@ export default {
     },
     async addTattoo(tattooData) {
       try {
-        console.log('test',tattooData.tattoo_id);
         const token = localStorage.getItem('userToken');
-        const response = await axios.post('http://localhost:8081/api/tattoos', tattooData.tattoo_id, {
+        const response = await axios.post('http://localhost:8081/api/tattoos', tattooData, {
           headers: {
             'x-access-token': token
           }
@@ -131,32 +119,6 @@ export default {
         console.error('Error adding tattoo:', error);
       }
     },
-    openSessionModal(tattoo) {
-      this.selectedTattoo = tattoo;
-      this.isSessionModalOpen = true;
-      this.selectedTattoo._id;
-      console.log(tattoo);
-    },
-    closeSessionModal() {
-      this.isSessionModalOpen = false;
-      this.selectedTattoo = null;
-    },
-    async addSession(sessionData) {
-      try {
-        sessionData.tattoo_id = this.selectedTattoo._id;
-        const token = localStorage.getItem('userToken');
-        const response = await axios.post('http://localhost:8081/api/sessions', sessionData, {
-          headers: {
-            'x-access-token': token
-          }
-        });
-        console.log(response);
-        this.closeSessionModal();
-        await this.fetchTattoos();
-      } catch (error) {
-        console.error('Error adding session:', error);
-      }
-    },
     openEditModal(tattoo) {
       this.selectedTattoo = tattoo;
       this.isEditModalOpen = true;
@@ -166,12 +128,8 @@ export default {
       this.selectedTattoo = null;
     },
     async handleEditSubmit() {
-      this.isEditModalOpen = false; // Ferme la modal après la modification
-      await this.fetchTattoos(); // Actualise la liste des tatouages après la modification
-    },
-    async handleAddSessionSubmit() {
-      this.isSessionModalOpen = false; // Ferme la modal après la modification
-      // await this.fetchTattoos(); Actualise la liste des tatouages après la modification
+      this.isEditModalOpen = false;
+      await this.fetchTattoos();
     },
     async deleteTattoo(tattooId) {
       try {
@@ -182,7 +140,7 @@ export default {
           }
         });
         console.log(response);
-        await this.fetchTattoos(); // Actualise la liste des tatouages après la suppression
+        await this.fetchTattoos();
       } catch (error) {
         console.error('Error deleting tattoo:', error);
       }
@@ -190,19 +148,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-* {
-  color: black;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  margin: 10px 0;
-}
-.error-message {
-  color: red;
-}
-</style>

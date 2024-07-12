@@ -1,12 +1,20 @@
 <template>
   <div class="flex justify-start">
     <SideMenu class="w-1/4 h-full" />
-    <div class="p-4">
+    <div class="p-4 w-3/4">
       <h1 class="text-2xl text-black font-bold mb-4">Mes Sessions</h1>
       
+      <!-- Bouton Ajouter Session -->
+      <button @click="openAddSessionModal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-4 rounded">
+        Ajouter une session
+      </button>
+
       <!-- Modal pour confirmer la suppression -->
       <Modal2 :isOpen="isDeleteModalOpen" :sessionId="sessionToDelete" @close="closeDeleteModal" @delete-confirmed="handleDeleteConfirmed"></Modal2>
-  
+      
+      <!-- Modal pour ajouter une session -->
+      <Modal :isOpen="isAddSessionModalOpen" @close="closeAddSessionModal" @submit="addSession"></Modal>
+
       <!-- Liste des Sessions -->
       <ul>
         <li v-for="session in sessions" :key="session._id" class="mb-4 p-4 border rounded flex justify-between">
@@ -48,11 +56,21 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import Modal2 from '../components/SessionPopUps/DeleteSession.vue';
+import Modal from '../components/SessionPopUps/NewSessionPop.vue';
 
 const sessions = ref([]);
 const isDeleteModalOpen = ref(false);
 const sessionToDelete = ref(null);
 
+const isAddSessionModalOpen = ref(false);
+
+const openAddSessionModal = () => {
+  isAddSessionModalOpen.value = true;
+};
+
+const closeAddSessionModal = () => {
+  isAddSessionModalOpen.value = false;
+};
 
 const openDeleteModal = (sessionId) => {
   sessionToDelete.value = sessionId;
@@ -64,21 +82,14 @@ const closeDeleteModal = () => {
   sessionToDelete.value = null;
 };
 
-// const addSession = async (sessionData) => {
-//   try {
-//     const token = localStorage.getItem('userToken');
-//     const response = await axios.post('http://localhost:8081/api/sessions', {
-//           headers: {
-//             'x-access-token': token
-//           }
-//         }, sessionData);
-//     console.log(sessionData);
-//     // Après l'ajout, recharger la liste des sessions
-//     await fetchSessions();
-//   } catch (error) {
-//     console.error('Error adding session:', error);
-//   }
-// };
+const addSession = async (sessionData) => {
+  try {
+    closeAddSessionModal();
+    await fetchSessions();
+  } catch (error) {
+    console.error('Error adding session:', error);
+  }
+};
 
 const handleDeleteConfirmed = async () => {
   try {
@@ -121,6 +132,7 @@ const editSession = async (sessionId) => {
 
 onMounted(fetchSessions);
 </script>
+
 
 <script>
 import SideMenu from "@/components/SideMenu.vue";
