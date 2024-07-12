@@ -2,10 +2,10 @@
   <div class="flex justify-start">
     <SideMenu class="w-1/4 h-full" />
     <div class="p-4 w-3/4">
-      <h1 class="text-2xl text-black font-bold mb-4">Mes Sessions</h1>
+      <h1 class="h1">Mes Séances</h1>
       
       <!-- Bouton Ajouter Session -->
-      <button @click="openAddSessionModal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-4 rounded">
+      <button @click="openAddSessionModal" class="button-primary mb-4">
         Ajouter une session
       </button>
 
@@ -34,10 +34,10 @@
             
             <!-- Boutons de gestion -->
             <div class="mt-4 flex">
-              <button @click="editSession(session._id)" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 mr-2 rounded">
+              <button @click="editSession(session._id)" class="button-edit">
                 Modifier
               </button>
-              <button @click="openDeleteModal(session._id)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+              <button @click="openDeleteModal(session._id)" class="button-delete">
                 Supprimer
               </button>
             </div>
@@ -107,12 +107,12 @@ const formatDate = (dateString) => {
 // Fonction pour récupérer les sessions depuis l'API
 const fetchSessions = async () => {
   try {
-    const token =localStorage.getItem('userToken');
-    const response = await axios.get('http://localhost:8081/api/mySessions',{
-          headers: {
-            'x-access-token': token
-          }
-        });
+    const token = localStorage.getItem('userToken');
+    const response = await axios.get('http://localhost:8081/api/mySessions', {
+      headers: {
+        'x-access-token': token
+      }
+    });
     sessions.value = response.data.data;
   } catch (error) {
     console.error('Error fetching sessions:', error);
@@ -145,5 +145,48 @@ export default {
 </script>
 
 <style scoped>
-/* Ajoutez vos styles spécifiques pour cette vue ici */
+/* Styles spécifiques pour les boutons */
+.button-primary {
+  background-color: #000000;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-primary:hover {
+  background-color: #333333;
+}
+
+.button-edit {
+  background-color: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.button-edit:hover {
+  background-color: #f0f0f0;
+}
+
+.button-delete {
+  background-color: #ff0000;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 8px 12px;
+  margin-left: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-delete:hover {
+  background-color: #ff3333;
+}
 </style>

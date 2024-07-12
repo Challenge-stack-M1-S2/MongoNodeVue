@@ -1,11 +1,11 @@
 <template>
   <b-card
-    :title="titre"
     tag="article"
     class="max-w-xs h-72 mb-4 font-bold text-gray-800"
     style="height: 38rem"
   >
     <img :src="imageSrc" alt="Card Image" class="w-full h-300px object-cover" />
+    <span class="ml-2">{{ titre }}</span>
     <div class="p-4">
       <div class="flex items-center mb-2">
         <img
@@ -15,7 +15,7 @@
         />
         <span class="ml-2">{{ localisation }}</span>
       </div>
-      <div class="flex items-center mb-2">
+      <div class="flex jsutify-center items-center mb-2">
         <img
           src="https://cdn-icons-png.flaticon.com/512/12308/12308225.png"
           alt="Artist"
@@ -27,21 +27,24 @@
           >{{ nomArtiste }}</span
         >
       </div>
-      <div class="flex flex-wrap">
+      <div class="flex justify-start flex-wrap pt-2">
         <span
           v-for="(tag, index) in tags"
           :key="index"
-          class="bg-gray-200 rounded-full px-3 py-1 text-sm mr-2 mb-2"
+          class="bg-gray-200 px-3 py-1 text-sm mr-2 mb-2"
           >{{ tag }}</span
         >
       </div>
     </div>
-    <b-button
-      :to="{ name: 'TattooDetailsPage', params: { id: id } }"
-      variant="primary"
-    >
-      Voir détails</b-button
-    >
+    <div class="button-container">
+      <b-button
+        :to="{ name: 'TattooDetailsPage', params: { id: id } }"
+        variant="dark"
+        class="details-button"
+      >
+        Voir détails
+      </b-button>
+    </div>
   </b-card>
 </template>
 
@@ -76,5 +79,16 @@ img {
   font-size: 14px;
   margin-right: 8px;
   margin-bottom: 8px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.details-button {
+  background-color: #000000 !important;
+  color: #ffffff !important;
 }
 </style>

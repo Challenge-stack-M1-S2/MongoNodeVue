@@ -3,7 +3,7 @@
   <div class="map-sessions-view flex">
     <SideMenu class="side-menu" />
     <div class="content w-5/6">
-      <h1 class="page-title text-black">Tous mes Sessions</h1>
+      <h1 class="h1 pt-4">Toutes les Séances</h1>
       <div class="search-bar">
         <input
           type="text"

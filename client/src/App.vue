@@ -38,6 +38,9 @@ onUnmounted(() => {
   /* text-align: center; */
   /*color: #ffffff;  Text color when navbar turns black */
 }
+.h1{
+font-size:20px;
+}
 
 .nav-link {
   margin: 0 15px;

@@ -2,9 +2,9 @@
   <div class="flex h-screen">
     <SideMenu class="w-1/4 h-full" />
     <div class="w-3/4 p-4 overflow-y-auto">
-      <h1 class="text-6xl font-bold text-gray-800 mb-4">Liste des Tatouages</h1>
+      <h1 class="h1">Liste des Tatouages</h1>
       <!-- Bouton Ajouter Tatouage -->
-      <button @click="openModal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-4 rounded">
+      <button @click="openModal" class="button-primary mb-4">
         Ajouter un tatouage
       </button>
       <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
@@ -19,11 +19,11 @@
           <p class="text-black"><strong>Prix:</strong> {{ tattoo.price }}</p>
           <!-- Boutons de gestion -->
           <div class="mt-4 flex">
-            <button @click="openEditModal(tattoo)" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 mr-2 rounded">
+            <button @click="openEditModal(tattoo)" class="button-edit">
               Modifier
             </button>
             <!-- Bouton Supprimer Tatouage -->
-            <button @click="deleteTattoo(tattoo._id)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+            <button @click="deleteTattoo(tattoo._id)" class="button-delete">
               Supprimer
             </button>
           </div>
@@ -145,3 +145,50 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+/* Styles spécifiques pour les boutons */
+.button-primary {
+  background-color: #000000;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-primary:hover {
+  background-color: #333333;
+}
+
+.button-edit {
+  background-color: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.button-edit:hover {
+  background-color: #f0f0f0;
+}
+
+.button-delete {
+  background-color: #ff0000;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 8px 12px;
+  margin-left: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-delete:hover {
+  background-color: #ff3333;
+}
+</style>
