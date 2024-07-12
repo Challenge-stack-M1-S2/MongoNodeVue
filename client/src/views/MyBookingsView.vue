@@ -11,6 +11,7 @@
           :class="{
             'timeline-item-reserved': reservation.status === 'reserved',
             'timeline-item-completed': reservation.status === 'finished',
+            'timeline-item-cancelled': reservation.status === 'cancelled',
           }"
         >
           <div class="timeline-content">
@@ -18,16 +19,24 @@
               class="text-xl font-semibold mb-2"
               :class="{
                 'reserved-text': reservation.status === 'reserved',
-                'not-reserved-text': reservation.status !== 'reserved',
+                'completed-text': reservation.status === 'finished',
+                'cancelled-text': reservation.status === 'cancelled',
               }"
             >
-              {{ reservation.status === "reserved" ? "Réservé" : "Terminé" }}
+              {{
+                reservation.status === "reserved"
+                  ? "Réservé"
+                  : reservation.status === "finished"
+                  ? "Terminé"
+                  : "Annulé"
+              }}
             </h2>
             <p
               v-if="reservation.session_id"
               :class="{
                 'reserved-text': reservation.status === 'reserved',
-                'not-reserved-text': reservation.status !== 'reserved',
+                'completed-text': reservation.status === 'finished',
+                'cancelled-text': reservation.status === 'cancelled',
               }"
             >
               <strong>Début:</strong>
@@ -37,7 +46,8 @@
               v-if="reservation.session_id"
               :class="{
                 'reserved-text': reservation.status === 'reserved',
-                'not-reserved-text': reservation.status !== 'reserved',
+                'completed-text': reservation.status === 'finished',
+                'cancelled-text': reservation.status === 'cancelled',
               }"
             >
               <strong>Fin:</strong>
@@ -46,7 +56,8 @@
             <p
               :class="{
                 'reserved-text': reservation.status === 'reserved',
-                'not-reserved-text': reservation.status !== 'reserved',
+                'completed-text': reservation.status === 'finished',
+                'cancelled-text': reservation.status === 'cancelled',
               }"
               v-if="reservation.session_id && reservation.session_id.location"
             >
@@ -56,7 +67,8 @@
             <p
               :class="{
                 'reserved-text': reservation.status === 'reserved',
-                'not-reserved-text': reservation.status !== 'reserved',
+                'completed-text': reservation.status === 'finished',
+                'cancelled-text': reservation.status === 'cancelled',
               }"
               v-else
             >
@@ -78,7 +90,7 @@
                 @click="deleteReservation(reservation._id)"
                 class="btn-delete"
               >
-                Annuler
+                Supprimer
               </button>
             </div>
           </div>
@@ -93,6 +105,12 @@
             v-else-if="reservation.status === 'reserved'"
             src="https://cdn-icons-png.flaticon.com/512/5497/5497297.png"
             alt="Image réservé"
+            class="timeline-image"
+          />
+          <img
+            v-else
+            src="https://cdn-icons-png.flaticon.com/512/7817/7817018.png"
+            alt="Image annulé"
             class="timeline-image"
           />
         </div>
@@ -148,6 +166,7 @@ export default {
           }
         );
         this.reservations = response.data.data;
+        console.log(this.reservations);
       } catch (error) {
         console.error("Error fetching reservations:", error);
       }
@@ -159,42 +178,21 @@ export default {
     },
     async deleteReservation(id) {
       try {
-        const token = localStorage.getItem("userToken");
-        await axios.put(`http://localhost:8081/api/appointments/${id}/cancel`, {
-          headers: {
-            "x-access-token": token,
-          },
-        });
-        await this.fetchReservations();
+        await axios
+          .put(
+            `http://localhost:8081/api/appointments/${id}/cancel`,
+            {},
+            {
+              headers: {
+                "x-access-token": localStorage.getItem("userToken"),
+              },
+            }
+          )
+          .then(() => {
+            this.$router.push("/my-bookings");
+          });
       } catch (error) {
         console.error("Error deleting reservation:", error);
-      }
-    },
-    async editReservation(id) {
-      try {
-        const token = localStorage.getItem("userToken");
-        const response = await axios.get(
-          `http://localhost:8080/api/tattoos/${id}`,
-          {
-            headers: {
-              "x-access-token": token,
-            },
-          }
-        );
-        const sessions = response.data.sessions;
-        console.log(sessions);
-        //   await axios.patch(
-        //     `http://localhost:8081/api/myAppointments/${id}`,
-        //     { new_date },
-        //     {
-        //       headers: {
-        //         "x-access-token": token,
-        //       },
-        //     }
-        //   );
-        //   await this.fetchReservations();
-      } catch (error) {
-        console.error(`http://localhost:8081/api/tattoos/${id}`);
       }
     },
   },
@@ -226,11 +224,11 @@ export default {
   margin: 20px 0;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: #0b5ed7;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  background-color: #f44336;
 }
 .timeline-item:before {
   content: "";
@@ -247,6 +245,9 @@ export default {
 }
 .timeline-item-completed:before {
   background-color: green;
+}
+.timeline-item-cancelled:before {
+  background-color: red;
 }
 .timeline-item:last-child {
   margin-bottom: 0;
@@ -271,10 +272,16 @@ export default {
 .timeline-item-completed {
   background-color: #0b5ed7;
 }
+.timeline-item-cancelled {
+  background-color: #ffcccc;
+}
 .reserved-text {
   color: #000;
 }
-.not-reserved-text {
+.completed-text {
+  color: #fff;
+}
+.cancelled-text {
   color: #fff;
 }
 .action-buttons {
@@ -283,10 +290,9 @@ export default {
 .btn-edit,
 .btn-delete {
   margin-right: 10px;
-  padding: 8px 16px;
-  font-size: 14px;
+  padding: 5px 10px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
 }
 .btn-edit {
