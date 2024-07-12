@@ -53,6 +53,7 @@ import axios from 'axios';
 import Modal2 from '../components/SessionPopUps/DeleteSession.vue';
 import Modal from '../components/SessionPopUps/NewSessionPop.vue';
 import ModifSession from '../components/SessionPopUps/ModifSession.vue';
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const sessions = ref([]);
