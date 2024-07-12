@@ -1,7 +1,7 @@
 <template>
   <div class="flex h-screen">
     <SideMenu class="w-1/4 h-full" />
-    <div class="w-3/4 p-4 overflow-y-auto">
+    <div class="w-3/4 p-4">
       <h1 class="text-6xl font-bold text-gray-800 mb-4">Mes Réservations</h1>
       <div class="timeline">
         <div
