@@ -6,7 +6,7 @@
   >
     <img :src="imageSrc" alt="Card Image" class="w-full h-300px object-cover" />
     <span class="ml-2">{{ titre }}</span>
-    <div class="p-4">
+    <div class="p-4 pl-0">
       <div class="flex items-center mb-2">
         <img
           src="https://cdn-icons-png.flaticon.com/512/2901/2901609.png"
@@ -28,10 +28,15 @@
         >
       </div>
       <div class="flex justify-start flex-wrap pt-2">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/81/81275.png"
+          alt="Artist"
+          class="h-4"
+        />
         <span
           v-for="(tag, index) in tags"
           :key="index"
-          class="bg-gray-200 px-3 py-1 text-sm mr-2 mb-2"
+          class="bg-gray-200 px-3 py-1 text-sm ml-2 mr-2 mb-2"
           >{{ tag }}</span
         >
       </div>
