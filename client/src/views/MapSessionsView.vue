@@ -2,7 +2,7 @@
   <div class="map-sessions-view flex">
     <SideMenu class="side-menu" />
     <div class="content w-5/6">
-      <h1 class="h1 pt-4">Toutes les Séances</h1>
+      <h1 class="h1 pt-4">Tatouages autour de vous</h1>
       <div class="search-bar">
         <input
           type="text"
