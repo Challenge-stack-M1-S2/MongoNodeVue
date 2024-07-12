@@ -7,18 +7,13 @@
     }"
     style="height: 919px"
   >
-  <nav class="w-full h-screen flex flex-col mt-36 jsutify-center">
-    <!-- Logo Section -->
-    <div class="flex justify-center">
-      <img
-        src="../assets/LogoBlack.png"
-        alt="Inked Legends Logo"
-        class="h-75"
-      />
-    </div>
-    <!-- Navigation Section -->
-    <ul class="flex flex-col justify-start">
-      <div>
+    <nav class="w-full h-screen flex flex-col justify-center">
+      <!-- Logo Section -->
+      <div class="flex justify-center">
+        <img :src="logo" alt="Inked Legends Logo" class="h-16" />
+      </div>
+      <!-- Navigation Section -->
+      <ul class="flex flex-col justify-start">
         <li class="mt-4">
           <router-link
             to="/"
@@ -27,13 +22,11 @@
           >
             <img
               src="https://cdn-icons-png.flaticon.com/512/3388/3388840.png"
-              class="fas fa-star mr-2"
+              class="h-4 w-4 mr-2"
             />
             Accueil
           </router-link>
         </li>
-      </div>
-      <div>
         <hr class="my-4 bg-black border-0" style="height: 1px" />
         <li v-if="isAdmin" class="mb-4">
           <router-link
@@ -43,7 +36,7 @@
           >
             <img
               src="https://cdn-icons-png.flaticon.com/512/5764/5764103.png"
-              class="fas fa-star mr-2"
+              class="h-4 w-4 mr-2"
             />
             Mes Séances
           </router-link>
@@ -56,7 +49,7 @@
           >
             <img
               src="https://cdn-icons-png.flaticon.com/512/4481/4481871.png"
-              class="fas fa-star mr-2"
+              class="h-4 w-4 mr-2"
             />
             Mes tattoos
           </router-link>
@@ -69,7 +62,7 @@
           >
             <img
               src="https://cdn-icons-png.flaticon.com/512/16702/16702410.png"
-              class="fas fa-star mr-2"
+              class="h-4 w-4 mr-2"
             />
             Mes réservations
           </router-link>
@@ -81,7 +74,7 @@
           >
             <img
               src="https://cdn-icons-png.flaticon.com/512/3082/3082383.png"
-              class="fas fa-star mr-2"
+              class="h-4 w-4 mr-2"
             />
             Ma map
           </router-link>
@@ -95,31 +88,32 @@
           >
             <img
               src="https://cdn-icons-png.flaticon.com/512/12765/12765311.png"
-              class="fas fa-star mr-2"
+              class="h-4 w-4 mr-2"
             />
             Connexion
           </router-link>
         </li>
         <li v-else class="mb-4">
-          <router-link
-            to="/"
-            @click="logout"
+          <a
+            href="#"
+            @click.prevent="logout"
             class="flex items-center text-gray-700 hover:text-black"
           >
             <img
               src="https://cdn-icons-png.flaticon.com/512/3726/3726291.png"
-              class="fas fa-star mr-2"
+              class="h-4 w-4 mr-2"
             />
             Se Déconnecter
-          </router-link>
+          </a>
         </li>
-      </div>
-    </ul>
-  </nav>
+      </ul>
+    </nav>
   </div>
 </template>
 
 <script>
+import logo from "@/assets/LogoBlackWhite.png";
+
 export default {
   name: "SideMenu",
   computed: {
@@ -129,6 +123,11 @@ export default {
     isAdmin() {
       return localStorage.getItem("admin") === "true";
     },
+  },
+  data() {
+    return {
+      logo: logo, // Utilisation de l'importation du logo
+    };
   },
   methods: {
     logout() {
@@ -141,9 +140,6 @@ export default {
 </script>
 
 <style scoped>
-img {
-  height: 30px;
-}
 nav .router-link-exact-active {
   background-color: #f0f0f0;
 }
