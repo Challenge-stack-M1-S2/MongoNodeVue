@@ -5,117 +5,117 @@
       'background-image':
         'url(' + require('@/assets/sidemenu-banner2.png') + ')',
     }"
-    style="height: 100vw"
+    style="height: 919px"
   >
-  <nav class="w-full h-screen flex flex-col">
-    <!-- Logo Section -->
-    <div class="flex justify-center">
-      <img
-        src="../assets/LogoBlackWhite.png"
-        alt="Inked Legends Logo"
-        class="h-75"
-      />
-    </div>
-    <!-- Navigation Section -->
-    <ul class="flex flex-col justify-start">
-      <div>
-        <li class="mt-4">
-          <router-link
-            to="/"
-            class="flex items-center text-gray-700 hover:text-black"
-            exact-active-class="router-link-exact-active"
-          >
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/3388/3388840.png"
-              class="fas fa-star mr-2"
-            />
-            Accueil
-          </router-link>
-        </li>
+    <nav class="w-full h-screen flex flex-col">
+      <!-- Logo Section -->
+      <div class="flex justify-center">
+        <img
+          src="../assets/LogoBlackWhite.png"
+          alt="Inked Legends Logo"
+          class="h-75"
+        />
       </div>
-      <div>
-        <hr class="my-4 bg-black border-0" style="height: 1px" />
-        <li v-if="isAdmin" class="mb-4">
-          <router-link
-            to="/mes-sessions"
-            class="flex items-center text-gray-700 hover:text-black"
-            exact-active-class="router-link-exact-active"
-          >
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/5764/5764103.png"
-              class="fas fa-star mr-2"
-            />
-            Mes Séances
-          </router-link>
-        </li>
-        <li v-if="isAdmin" class="mb-4">
-          <router-link
-            to="/tattoo-artist"
-            class="flex items-center text-gray-700 hover:text-black"
-            exact-active-class="router-link-exact-active"
-          >
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/4481/4481871.png"
-              class="fas fa-star mr-2"
-            />
-            Mes tattoos
-          </router-link>
-        </li>
-        <li v-if="isUserTokenPresent && !isAdmin" class="mb-4">
-          <router-link
-            to="/my-bookings"
-            class="flex items-center text-gray-700 hover:text-black"
-            exact-active-class="router-link-exact-active"
-          >
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/16702/16702410.png"
-              class="fas fa-star mr-2"
-            />
-            Mes réservations
-          </router-link>
-        </li>
-        <li class="mb-4">
-          <router-link
-            to="/map-box"
-            class="flex items-center text-gray-700 hover:text-black"
-          >
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/3082/3082383.png"
-              class="fas fa-star mr-2"
-            />
-            Ma map
-          </router-link>
-        </li>
-        <hr class="my-4 bg-black border-0" style="height: 1px" />
-        <li v-if="!isUserTokenPresent" class="mb-4">
-          <router-link
-            to="/login-form"
-            class="flex items-center text-gray-700 hover:text-black"
-            exact-active-class="router-link-exact-active"
-          >
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/12765/12765311.png"
-              class="fas fa-star mr-2"
-            />
-            Connexion
-          </router-link>
-        </li>
-        <li v-else class="mb-4">
-          <router-link
-            to="/"
-            @click="logout"
-            class="flex items-center text-gray-700 hover:text-black"
-          >
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/3726/3726291.png"
-              class="fas fa-star mr-2"
-            />
-            Se Déconnecter
-          </router-link>
-        </li>
-      </div>
-    </ul>
-  </nav>
+      <!-- Navigation Section -->
+      <ul class="flex flex-col justify-start">
+        <div>
+          <li class="mt-4">
+            <router-link
+              to="/"
+              class="flex items-center text-gray-700 hover:text-black"
+              exact-active-class="router-link-exact-active"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/3388/3388840.png"
+                class="fas fa-star mr-2"
+              />
+              Accueil
+            </router-link>
+          </li>
+        </div>
+        <div>
+          <hr class="my-4 bg-black border-0" style="height: 1px" />
+          <li v-if="isAdmin" class="mb-4">
+            <router-link
+              to="/mes-sessions"
+              class="flex items-center text-gray-700 hover:text-black"
+              exact-active-class="router-link-exact-active"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/5764/5764103.png"
+                class="fas fa-star mr-2"
+              />
+              Mes Séances
+            </router-link>
+          </li>
+          <li v-if="isAdmin" class="mb-4">
+            <router-link
+              to="/tattoo-artist"
+              class="flex items-center text-gray-700 hover:text-black"
+              exact-active-class="router-link-exact-active"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/4481/4481871.png"
+                class="fas fa-star mr-2"
+              />
+              Mes tattoos
+            </router-link>
+          </li>
+          <li v-if="isUserTokenPresent && !isAdmin" class="mb-4">
+            <router-link
+              to="/my-bookings"
+              class="flex items-center text-gray-700 hover:text-black"
+              exact-active-class="router-link-exact-active"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/16702/16702410.png"
+                class="fas fa-star mr-2"
+              />
+              Mes réservations
+            </router-link>
+          </li>
+          <li class="mb-4">
+            <router-link
+              to="/map-box"
+              class="flex items-center text-gray-700 hover:text-black"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/3082/3082383.png"
+                class="fas fa-star mr-2"
+              />
+              Ma map
+            </router-link>
+          </li>
+          <hr class="my-4 bg-black border-0" style="height: 1px" />
+          <li v-if="!isUserTokenPresent" class="mb-4">
+            <router-link
+              to="/login-form"
+              class="flex items-center text-gray-700 hover:text-black"
+              exact-active-class="router-link-exact-active"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/12765/12765311.png"
+                class="fas fa-star mr-2"
+              />
+              Connexion
+            </router-link>
+          </li>
+          <li v-else class="mb-4">
+            <a
+              href="#"
+              @click.prevent="logout"
+              class="flex items-center text-gray-700 hover:text-black"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/3726/3726291.png"
+                class="fas fa-star mr-2"
+              />
+              Se Déconnecter
+            </a>
+          </li>
+        </div>
+      </ul>
+    </nav>
   </div>
 </template>
 
@@ -134,7 +134,7 @@ export default {
     logout() {
       localStorage.removeItem("userToken");
       localStorage.removeItem("admin");
-      this.$router.push("/");
+      window.location.reload(); // Force page reload
     },
   },
 };
