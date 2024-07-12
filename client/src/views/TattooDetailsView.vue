@@ -5,7 +5,7 @@
       class="content max-w-4xl mx-auto px-4 py-8 flex flex-col justify-center items-center min-h-screen"
     >
       <h1
-        class="w-full text-4xl font-extrabold mb-4 text-white bg-gradient-to-r from-gray-800 to-gray-900 p-3 rounded shadow-2xl"
+        class="text-center w-full text-4xl font-extrabold mb-4 text-white bg-gradient-to-r from-gray-800 to-gray-900 p-3 rounded shadow-2xl"
       >
         Détails du Tatouage
       </h1>

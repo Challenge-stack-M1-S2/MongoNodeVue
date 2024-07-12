@@ -20,7 +20,7 @@
           />
           <button class="border p-2 rounded-r-md bg-gray-200">🔍</button>
         </div>
-        
+
         <div class="flex flex-col mt-2" style="width: 30%">
           <p class="font-bold text-gray-800 text-left py-2">Tags :</p>
           <select
@@ -38,9 +38,7 @@
             </option>
           </select>
         </div>
-        <div class="flex  mt-4 justify-start " style="width: 100%">
-          
-
+        <div class="flex mt-4 justify-start" style="width: 100%">
           <div class="relative mr-4" style="width: 30%">
             <input
               type="text"
@@ -88,7 +86,7 @@
             </div>
           </div>
 
-          <div class="relative" style="width:30%">
+          <div class="relative" style="width: 30%">
             <input
               type="text"
               v-model="filters.artist"
@@ -135,7 +133,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="mt-2 flex flex-wrap">
           <span
             v-for="(tag, index) in selectedTags"
@@ -158,7 +156,9 @@
           </span>
         </div>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 place-content-around">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 place-content-around"
+      >
         <Card
           v-for="(card, index) in filteredCards"
           :key="index"
@@ -202,6 +202,7 @@ const showArtistSuggestions = ref(false);
 onMounted(async () => {
   try {
     const response = await axios.get("http://localhost:8081/api/tattoos");
+    console.log(response.data);
     const fetchedCards = response.data.map((tattoo) => ({
       titre: tattoo.description,
       imageSrc: tattoo.image_url,
@@ -209,6 +210,7 @@ onMounted(async () => {
       nomArtiste: tattoo.artist_id.username || "Unknown",
       tags: [tattoo.style_id.style_name],
       id: tattoo._id,
+      available: tattoo.hasAvailableSessions,
     }));
     cards.value = fetchedCards;
 
@@ -321,10 +323,15 @@ const filteredCards = computed(() => {
     filters.value.artists.length === 0 &&
     searchQuery.value.trim() === ""
   ) {
-    return cards.value;
+    // Retourner seulement les cartes disponibles si aucun filtre n'est appliqué
+    return cards.value.filter((card) => card.available);
   }
 
   return cards.value.filter((card) => {
+    if (!card.available) {
+      return false;
+    }
+
     const matchesSearch =
       card.titre.toLowerCase().includes(searchLower) ||
       card.localisation.toLowerCase().includes(searchLower) ||
