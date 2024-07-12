@@ -82,3 +82,41 @@ exports.deleteSession = async (req, res) => {
     }
   };
 
+
+  //PUT
+  exports.putSession = async (req, res) => {
+    const sessionId = req.params.id; // Assuming the session ID is passed as a parameter
+    const {
+      tattoo_id,
+      address,
+      start_datetime,
+      end_datetime,
+      status
+    } = req.body;
+  
+    try {
+      let session = await Session.findById(sessionId);
+  
+      if (!session) {
+        return res.status(404).json({ error: 'Session not found' });
+      }
+  
+      // Update session fields based on request body
+      session.tattoo_id = tattoo_id;
+      session.address = address;
+      session.start_datetime = start_datetime;
+      session.end_datetime = end_datetime;
+      session.status = status;
+  
+      // Save updated session
+      await session.save();
+  
+      return res.status(200).json({
+        success: true,
+        data: session
+      });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Server error' });
+    }
+  };
