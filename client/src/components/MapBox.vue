@@ -14,23 +14,95 @@ export default {
   },
   methods: {
     async initializeMap() {
-      try {
-        const map = new mapboxgl.Map({
-          container: this.$refs.mapContainer,
-          style: "mapbox://styles/mapbox/streets-v12",
-          center: [4.84468, 45.74848],
-          zoom: 10,
-        });
-        this.map = map;
+  try {
+    const map = new mapboxgl.Map({
+      container: this.$refs.mapContainer,
+      style: "mapbox://styles/mapbox/streets-v12",
+      center: [4.84468, 45.74848],
+      zoom: 10,
+    });
+    this.map = map;
 
-        const sessions = await this.getSessionsFromAPI();
-        console.log("Sessions data:", sessions); // Log the sessions data to console
-        this.addCustomIconToMap(map);
-        this.addLayerToMap(map, sessions);
-      } catch (error) {
-        console.error("Error initializing map:", error);
-      }
-    },
+    // Enable clustering
+    map.on("load", async () => {
+      map.addSource("sessions", {
+        type: "geojson",
+        data: {
+          type: "FeatureCollection",
+          features: [],
+        },
+        cluster: true, // Enable clustering
+        clusterMaxZoom: 14, // Max zoom to cluster points on
+        clusterRadius: 50, // Radius of each cluster when clustering points (in pixels)
+      });
+
+      const sessions = await this.getSessionsFromAPI();
+      map.getSource("sessions").setData(sessions);
+
+      // Add cluster points layer
+      map.addLayer({
+        id: "clusters",
+        type: "circle",
+        source: "sessions",
+        filter: ["has", "point_count"],
+        paint: {
+          "circle-color": [
+            "step",
+            ["get", "point_count"],
+            "#51bbd6",
+            100,
+            "#f1f075",
+            750,
+            "#f28cb1",
+          ],
+          "circle-radius": [
+            "step",
+            ["get", "point_count"],
+            20,
+            100,
+            30,
+            750,
+            40,
+          ],
+        },
+      });
+
+      // Add cluster symbol
+      map.addLayer({
+        id: "cluster-count",
+        type: "symbol",
+        source: "sessions",
+        filter: ["has", "point_count"],
+        layout: {
+          "text-field": "{point_count_abbreviated}",
+          "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+          "text-size": 12,
+        },
+      });
+
+      // Add unclustered symbol
+      map.addLayer({
+        id: "unclustered-point",
+        type: "symbol",
+        source: "sessions",
+        filter: ["!", ["has", "point_count"]],
+        layout: {
+          "icon-image": "custom-icon",
+          "icon-size": 0.1,
+          "text-field": "{sessionId}",
+          "text-offset": [0, 1],
+          "text-anchor": "top",
+        },
+      });
+
+      this.addCustomIconToMap(map);
+    });
+
+  } catch (error) {
+    console.error("Error initializing map:", error);
+  }
+},
+
     async getSessionsFromAPI() {
       try {
         const response = await fetch("http://localhost:8081/api/sessions");
@@ -50,7 +122,7 @@ export default {
             ],
           },
           properties: {
-            sessionId: session.sessionId, // Adjust according to your API response
+            sessionId: session.sessionId,
             icon: "custom-icon",
           },
         }));

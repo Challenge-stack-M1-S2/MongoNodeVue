@@ -1,16 +1,19 @@
 <template>
   <div class="flex justify-start">
     <SideMenu class="w-1/4 h-full" />
-    <div class="p-4">
+    <div class="p-4 w-3/4">
       <h1 class="text-2xl text-black font-bold mb-4">Mes Sessions</h1>
-
+      
       <!-- Bouton Ajouter Session -->
-      <!-- <button @click="openModal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-4 rounded">
+      <button @click="openAddSessionModal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-4 rounded">
         Ajouter une session
-      </button> -->
+      </button>
 
+      <!-- Modal pour confirmer la suppression -->
+      <Modal2 :isOpen="isDeleteModalOpen" :sessionId="sessionToDelete" @close="closeDeleteModal" @delete-confirmed="handleDeleteConfirmed"></Modal2>
+      
       <!-- Modal pour ajouter une session -->
-      <Modal :isOpen="isModalOpen" @close="closeModal" @submit="addSession"></Modal>
+      <Modal :isOpen="isAddSessionModalOpen" @close="closeAddSessionModal" @submit="addSession"></Modal>
 
       <!-- Liste des Sessions -->
       <ul>
@@ -34,7 +37,7 @@
               <button @click="editSession(session._id)" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 mr-2 rounded">
                 Modifier
               </button>
-              <button @click="deleteSession(session._id)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+              <button @click="openDeleteModal(session._id)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                 Supprimer
               </button>
             </div>
@@ -52,34 +55,47 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import Modal from '../components/NewSessionPop.vue';
-import SideMenu from '@/components/SideMenu.vue';
-
-const token = localStorage.getItem('userToken');
+import Modal2 from '../components/SessionPopUps/DeleteSession.vue';
+import Modal from '../components/SessionPopUps/NewSessionPop.vue';
 
 const sessions = ref([]);
-const isModalOpen = ref(false);
+const isDeleteModalOpen = ref(false);
+const sessionToDelete = ref(null);
 
-// const openModal = () => {
-//   isModalOpen.value = true;
-// };
+const isAddSessionModalOpen = ref(false);
 
-const closeModal = () => {
-  isModalOpen.value = false;
+const openAddSessionModal = () => {
+  isAddSessionModalOpen.value = true;
+};
+
+const closeAddSessionModal = () => {
+  isAddSessionModalOpen.value = false;
+};
+
+const openDeleteModal = (sessionId) => {
+  sessionToDelete.value = sessionId;
+  isDeleteModalOpen.value = true;
+};
+
+const closeDeleteModal = () => {
+  isDeleteModalOpen.value = false;
+  sessionToDelete.value = null;
 };
 
 const addSession = async (sessionData) => {
   try {
-    const response = await axios.post('http://localhost:8081/api/sessions', sessionData, {
-      headers: {
-        'x-access-token': token
-      }
-    });
-    console.log(response);
-    // Après l'ajout, recharger la liste des sessions
+    closeAddSessionModal();
     await fetchSessions();
   } catch (error) {
     console.error('Error adding session:', error);
+  }
+};
+
+const handleDeleteConfirmed = async () => {
+  try {
+    await fetchSessions();
+  } catch (error) {
+    console.error('Error fetching sessions:', error);
   }
 };
 
@@ -91,40 +107,22 @@ const formatDate = (dateString) => {
 // Fonction pour récupérer les sessions depuis l'API
 const fetchSessions = async () => {
   try {
-    const response = await axios.get('http://localhost:8081/api/mySessions', {
-      headers: {
-        'x-access-token': token
-      }
-    });
+    const token =localStorage.getItem('userToken');
+    const response = await axios.get('http://localhost:8081/api/mySessions',{
+          headers: {
+            'x-access-token': token
+          }
+        });
     sessions.value = response.data.data;
   } catch (error) {
     console.error('Error fetching sessions:', error);
   }
 };
 
-// Fonction pour supprimer une session
-const deleteSession = async (sessionId) => {
-  try {
-    await axios.delete(`http://localhost:8081/api/sessions/${sessionId}`, {
-      headers: {
-        'x-access-token': token
-      }
-    });
-    // Après la suppression, recharger la liste des sessions
-    await fetchSessions();
-  } catch (error) {
-    console.error('Error deleting session:', error);
-  }
-};
-
 // Fonction pour modifier une session
-const editSession = async (sessionId, sessionData) => {
+const editSession = async (sessionId) => {
   try {
-    await axios.put(`http://localhost:8081/api/sessions/${sessionId}`, sessionData, {
-      headers: {
-        'x-access-token': token
-      }
-    });
+    await axios.put(`http://localhost:8081/api/sessions/${sessionId}`);
     // Après la modification, recharger la liste des sessions
     await fetchSessions();
   } catch (error) {
@@ -133,6 +131,17 @@ const editSession = async (sessionId, sessionData) => {
 };
 
 onMounted(fetchSessions);
+</script>
+
+
+<script>
+import SideMenu from "@/components/SideMenu.vue";
+
+export default {
+  components: {
+    SideMenu,
+  }
+};
 </script>
 
 <style scoped>

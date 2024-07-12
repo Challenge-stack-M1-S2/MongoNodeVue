@@ -11,11 +11,15 @@ module.exports = function(app) {
     });
    
    /*** Session ***/
-   
-   /*** User non connecté ***/
-   app.get("/api/mySessions", [authJwt.verifyToken, authJwt.isAdmin], controller.getSessions); 
+   app.get("/api/sessions", controller.getSessions); 
 
+   /*** User non connecté ***/
+   app.get("/api/mySessions", [authJwt.verifyToken, authJwt.isAdmin], controller.getMySessions); 
+
+  /*** User connecté ***/
    app.post("/api/sessions", [authJwt.verifyToken, authJwt.isAdmin], controller.addSessions);
+
+   app.delete("/api/sessions/:id",[authJwt.verifyToken, authJwt.isAdmin], controller.deleteSession);
   
   }
 
