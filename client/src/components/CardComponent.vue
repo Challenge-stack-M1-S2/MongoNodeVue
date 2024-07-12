@@ -5,7 +5,7 @@
     style="height: 38rem"
   >
     <img :src="imageSrc" alt="Card Image" class="w-full h-300px object-cover" />
-    <span class="ml-2">{{ titre }}</span>
+    <span>{{ titre }}</span>
     <div class="p-4">
       <div class="flex items-center mb-2">
         <img
